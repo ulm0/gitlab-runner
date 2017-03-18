@@ -1,6 +1,6 @@
 ## Tags
 
-- ```latest```, ```armhf```, ```0.1```: [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/master/Dockerfile)
+- ```latest```, ```armhf```, ```0.1```: [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/d42fe93e8342fe467c60b62d70a5dccd727fc267/Dockerfile) / [CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/d42fe93e8342fe467c60b62d70a5dccd727fc267/CHANGELOG) / [Repo](https://gitlab.com/klud/gitlab-runner/tree/d42fe93e8342fe467c60b62d70a5dccd727fc267)
 
 ## About the image
 
