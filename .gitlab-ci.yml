@@ -1,0 +1,16 @@
+build:
+  image: klud/docker:1.13-armhf
+  services:
+    - klud/dind:1.10.3-armhf
+  stage: build
+  # When using dind, it's wise to use the overlayfs driver for
+  # improved performance.
+  variables:
+    DOCKER_DRIVER: overlay
+  tags:
+    - armhf
+  script:
+    script:
+      - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+      - docker build -t registry.gitlab.com/klud/gitlab-runner:armhf .
+      - docker push registry.gitlab.com/klud/gitlab-runner:armhf
