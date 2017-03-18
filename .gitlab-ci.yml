@@ -10,7 +10,6 @@ build:
   tags:
     - armhf
   script:
-    script:
       - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
       - docker build -t registry.gitlab.com/klud/gitlab-runner:armhf .
       - docker push registry.gitlab.com/klud/gitlab-runner:armhf
