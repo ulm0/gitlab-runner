@@ -1,7 +1,7 @@
 build:
   image: klud/docker:1.13-armhf
   services:
-    - klud/dind:1.10.3-armhf
+    - klud/dind:1.13-armhf
   stage: build
   # When using dind, it's wise to use the overlayfs driver for
   # improved performance.
