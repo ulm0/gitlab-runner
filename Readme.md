@@ -1,3 +1,7 @@
+## Tags
+
+- ```latest```, ```armhf```, ```0.1```: [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/master/Dockerfile)
+
 ## About the image
 
 [![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits/master)
@@ -14,7 +18,7 @@ You need to mount a config volume into our gitlab-runner container to be used fo
 docker run -d --name $(container_name) \
 -v /path/to/config/file:/etc/gitlab-runner \
 --restart always \
-klud/gitlab-runner:armhf
+klud/gitlab-runner:latest
 ```
 
 
@@ -27,7 +31,7 @@ docker run -d --name $(container_name_data) \
 
 docker run -d --name $(container_name) --restart always \
     --volumes-from gitlab-runner-config \
-    klud/gitlab-runner:armhf
+    klud/gitlab-runner:latest
 ```
 
 
@@ -36,14 +40,14 @@ If you plan on using Docker as the method of spawning runners, you will need to 
 docker run -d --name $(container_name) --restart always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /path/to/config/file:/etc/gitlab-runner \
-  klud/gitlab-runner:armhf
+  klud/gitlab-runner:latest
 ```
 
 
 You can approach this by using a docker-compose.yml file as well:
 ```
 runner:
-  image: klud/gitlab-runner:armhf
+  image: klud/gitlab-runner:latest
   container_name: $(container_name)
   restart: always
   volumes:
@@ -89,7 +93,7 @@ gitlab-runner register -n \
 ```
 
 
-#### Tip:
+#### Tip
  If you're going to build images on this runner you can use the docker image i built for this use-case as well, just type ```klud/docker:1.13-armhf``` or ```klud/docker:17.03-armhf``` when ```Please enter the Docker image``` in the first method or in ```--docker-image "image:tag"``` with the second method. There are also images for docker in docker (DinD) using ```klud/dind:1.13-armhf``` or ```klud/dind:17.03-armhf``` and for docker git ```klud/git:1.13-armhf``` or ```klud/git:17.03-armhf```
 
 ## Troubleshooting
