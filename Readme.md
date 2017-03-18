@@ -1,5 +1,6 @@
 ## About the image
 
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits/master)
 This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the libc headers and defaults to glibc; install ```build-essential``` package if running a raspbian-based linux and just run ```make``` within the repo you just cloned.
 
 ## Usage

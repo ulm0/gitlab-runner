@@ -13,3 +13,5 @@ build:
       - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
       - docker build -t registry.gitlab.com/klud/gitlab-runner:armhf .
       - docker push registry.gitlab.com/klud/gitlab-runner:armhf
+      # Delete image from host after being pushed to the registry
+      - docker rmi -f registry.gitlab.com/klud/gitlab-runner:armhf
