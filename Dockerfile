@@ -2,17 +2,25 @@ FROM armhf/alpine:3.5
 
 MAINTAINER Klud <pierre.ugazm@gmail.com>
 
-ADD dumb-init /usr/bin/dumb-init
-RUN chmod +x /usr/bin/dumb-init
-
-RUN apk add --update \
-    bash \
-    ca-certificates \
+RUN apk add --update --no-cache \
     git \
+    bash \
+    build-base
+
+RUN git clone https://github.com/Yelp/dumb-init.git && \
+    cd dumb-init && \
+    git fetch origin 8e103bbb8b5ef5286b7800be011ab962dd7edb7a:refs/remotes/origin/v1.2.0 && \
+    make && \
+    mv dumb-init /usr/bin/dumb-init && \
+    chmod +x /usr/bin/dumb-init && \
+    cd .. && \
+    rm -rf dumb-init
+
+RUN apk del build-base && \
+    apk add --update --no-cache \
+    ca-certificates \
     openssl \
-    wget && \
-    rm -rf \
-    /var/cache/apk/*
+    wget
 
 RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \

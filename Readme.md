@@ -1,6 +1,6 @@
 ## Tags
 
-- ```latest```, ```armhf```, ```0.1```: [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/d42fe93e8342fe467c60b62d70a5dccd727fc267/Dockerfile) / [CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/d42fe93e8342fe467c60b62d70a5dccd727fc267/CHANGELOG) / [Repo](https://gitlab.com/klud/gitlab-runner/tree/d42fe93e8342fe467c60b62d70a5dccd727fc267)
+- ```latest```, ```armhf```, ```0.1```: [Release](https://gitlab.com/klud/gitlab-runner/tags/v0.1) |  [Repo](https://gitlab.com/klud/gitlab-runner/tree/31a4a306e8433436ee87f79442f17230856528a1) | [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/31a4a306e8433436ee87f79442f17230856528a1/Dockerfile) | [CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/31a4a306e8433436ee87f79442f17230856528a1/CHANGELOG)
 
 ## About the image
 
@@ -99,7 +99,7 @@ gitlab-runner register -n \
 ## Troubleshooting
 In case you're using docker in docker in the runner, you may expirience some problems when talking to the docker socket: ```Cannot connect to the Docker daemon. Is the docker daemon running on this host?```.
 
-So in order to address this issue you need to look within the config folder you mounted in the runner container, there will be config file inside and you need to add some lines and then restart the runner with ```docker restart $(container_name)```.
+So in order to address this issue you need to look within the config folder you mounted in the runner container, there will be a config file inside, you need to add some lines and then restart the runner with ```docker restart $(container_name)```.
 
 ```
 concurrent = 1
