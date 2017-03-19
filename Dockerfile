@@ -2,22 +2,28 @@ FROM armhf/alpine:3.5
 
 MAINTAINER Klud <pierre.ugazm@gmail.com>
 
+ENV DUMB_INIT_SHA256 74486997321bd939cad2ee6af030f481d39751bc9aa0ece84ed55f864e309a3f
+
 RUN apk add --update --no-cache \
-    git \
     bash \
     build-base
 
-RUN git clone https://github.com/Yelp/dumb-init.git && \
+RUN set -x && \
+    curl -fSL "https://github.com/Yelp/dumb-init/archive/v1.2.0.tar.gz" -o dumb-init.tar.gz && \
+    echo "${DUMB_INIT_SHA256} *dumb-init.tar.gz" | sha256sum -c - && \
+    tar -xzvf dumb-init.tar.gz && \
     cd dumb-init && \
-    git fetch origin 8e103bbb8b5ef5286b7800be011ab962dd7edb7a:refs/remotes/origin/v1.2.0 && \
     make && \
     mv dumb-init /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
+    dumb-init -V && \
     cd .. && \
-    rm -rf dumb-init
+    rmdir dumb-init && \
+    rm -f dumb-init.tar.gz
 
 RUN apk del build-base && \
     apk add --update --no-cache \
+    git \
     ca-certificates \
     openssl \
     wget

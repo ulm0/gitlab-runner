@@ -10,8 +10,6 @@ build:
     VER: '0.2'
   tags:
     - armhf
-  except:
-    - tags
   script:
     # Login to registries
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
