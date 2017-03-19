@@ -6,7 +6,12 @@ ENV DUMB_INIT_SHA256 74486997321bd939cad2ee6af030f481d39751bc9aa0ece84ed55f864e3
 
 RUN apk add --update --no-cache \
     bash \
-    build-base
+    build-base \
+    git \
+    ca-certificates \
+    openssl \
+    wget \
+    curl
 
 RUN set -x && \
     curl -fSL "https://github.com/Yelp/dumb-init/archive/v1.2.0.tar.gz" -o dumb-init.tar.gz && \
@@ -21,12 +26,7 @@ RUN set -x && \
     rmdir dumb-init && \
     rm -f dumb-init.tar.gz
 
-RUN apk del build-base && \
-    apk add --update --no-cache \
-    git \
-    ca-certificates \
-    openssl \
-    wget
+RUN apk del build-base
 
 RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
