@@ -17,13 +17,13 @@ RUN set -x && \
     curl -fSL "https://github.com/Yelp/dumb-init/archive/v1.2.0.tar.gz" -o dumb-init.tar.gz && \
     echo "${DUMB_INIT_SHA256} *dumb-init.tar.gz" | sha256sum -c - && \
     tar -xzvf dumb-init.tar.gz && \
-    cd dumb-init && \
+    cd dumb-init-1.2.0 && \
     make && \
     mv dumb-init /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init -V && \
     cd .. && \
-    rmdir dumb-init && \
+    rmdir dumb-init-1.2.0 && \
     rm -f dumb-init.tar.gz
 
 RUN apk del build-base
