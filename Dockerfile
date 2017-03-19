@@ -23,7 +23,7 @@ RUN set -x && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init -V && \
     cd .. && \
-    rmdir dumb-init-1.2.0 && \
+    rm -rf dumb-init-1.2.0 && \
     rm -f dumb-init.tar.gz
 
 RUN apk del build-base

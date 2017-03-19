@@ -1,6 +1,6 @@
 ## Tags
-
-- ```latest```, ```armhf```, ```0.1```: [Release](https://gitlab.com/klud/gitlab-runner/tags/v0.1) |  [Repo](https://gitlab.com/klud/gitlab-runner/tree/31a4a306e8433436ee87f79442f17230856528a1) | [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/31a4a306e8433436ee87f79442f17230856528a1/Dockerfile) | [CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/31a4a306e8433436ee87f79442f17230856528a1/CHANGELOG)
+- ```latest```, ```armhf```, ```0.2```: [Release]() | [Repo]() | [Dockerfile]() | [CHANGELOG]()
+- ```0.1```: [Release](https://gitlab.com/klud/gitlab-runner/tags/v0.1) |  [Repo](https://gitlab.com/klud/gitlab-runner/tree/31a4a306e8433436ee87f79442f17230856528a1) | [Dockerfile](https://gitlab.com/klud/gitlab-runner/blob/31a4a306e8433436ee87f79442f17230856528a1/Dockerfile) | [CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/31a4a306e8433436ee87f79442f17230856528a1/CHANGELOG)
 
 ## About the image
 
