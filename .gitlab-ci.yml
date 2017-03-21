@@ -8,6 +8,8 @@ build:
   variables:
     DOCKER_DRIVER: overlay
     VER: '0.2'
+  only:
+    - tags
   tags:
     - armhf
   script:
