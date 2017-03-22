@@ -9,6 +9,8 @@ build:
     DOCKER_DRIVER: overlay
     VER: '0.2'
   only:
+    - master@klud/gitlab-runner
+  except:
     - tags
   tags:
     - armhf
