@@ -7,7 +7,7 @@ build:
   # for improved performance.
   variables:
     DOCKER_DRIVER: overlay
-    VER: '0.2'
+    VER: '0.3'
   only:
     - master@klud/gitlab-runner
   except:
@@ -17,7 +17,7 @@ build:
   script:
     # Login to registries
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     # Build the actual image
     - docker build -t klud/gitlab-runner:$VER .
     # Tag the image for Docker Hub
