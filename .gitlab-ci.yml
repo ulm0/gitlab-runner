@@ -32,7 +32,7 @@ runner-build:
     - klud/dind:17.03-armhf
   stage: build
   dependencies:
-    - dumb-init-build
+    - dumb-init
   # When using dind, it's wise to use the overlayfs driver
   # for improved performance.
   variables:
