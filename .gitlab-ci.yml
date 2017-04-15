@@ -21,10 +21,10 @@ dumb-init:
     untracked: true
     paths:
       - dumb-init-1.2.0/dumb-init
-    only:
-      - ci-test@klud/gitlab-runner
-    tags:
-      - armhf
+  only:
+    - ci-test@klud/gitlab-runner
+  tags:
+    - armhf
 
 runner-build:
   image: klud/docker:17.03-armhf
