@@ -1,9 +1,10 @@
 ## Tags
 
-- |[CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/master/CHANGELOG)|
-- ```latest```, ```armhf```, ```0.3```
-- ```0.2```
-- ```0.1```
+- |[CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/master/CHANGELOG.md)|
+- `latest`, `armhf`, `0.4` 
+- `0.3`
+- `0.2`
+- `0.1`
 
 ## About the image
 

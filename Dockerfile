@@ -22,13 +22,14 @@ RUN set -x && \
     mv dumb-init /usr/bin/dumb-init && \
     chmod +x /usr/bin/dumb-init && \
     dumb-init -V && \
+    make clean && \
     cd .. && \
     rm -rf dumb-init-1.2.0 && \
     rm -f dumb-init.tar.gz
 
 RUN apk del build-base
 
-RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.0.0/binaries/gitlab-ci-multi-runner-linux-arm && \
+RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.0.1/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
     ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
     wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \

@@ -1,13 +1,13 @@
 build:
-  image: klud/docker:1.13-armhf
+  image: klud/docker:17.03-armhf
   services:
-    - klud/dind:1.13-armhf
+    - klud/dind:17.03-armhf
   stage: build
   # When using dind, it's wise to use the overlayfs driver
   # for improved performance.
   variables:
     DOCKER_DRIVER: overlay
-    VER: '0.3'
+    VER: '0.4'
   only:
     - master@klud/gitlab-runner
   except:
