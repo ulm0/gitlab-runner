@@ -7,7 +7,7 @@ build:
   # for improved performance.
   variables:
     DOCKER_DRIVER: overlay
-    VER: '0.4'
+    VER: '0.5'
   only:
     - master@klud/gitlab-runner
   except:

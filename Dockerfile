@@ -4,7 +4,7 @@ MAINTAINER Klud <pierre.ugazm@gmail.com>
 
 ENV DUMB_INIT_SHA256 74486997321bd939cad2ee6af030f481d39751bc9aa0ece84ed55f864e309a3f
 
-RUN apk add --update --no-cache \
+RUN apk add --no-cache \
     bash \
     build-base \
     git \
@@ -29,7 +29,7 @@ RUN set -x && \
 
 RUN apk del build-base
 
-RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.0.1/binaries/gitlab-ci-multi-runner-linux-arm && \
+RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.0.2/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
     ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
     wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
