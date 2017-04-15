@@ -1,12 +1,12 @@
 stages:
-  - compile
-  - build
+  - compile_dumb-init
+  - build_push_images
 
-dumb-init:
+dumb-init-compile:
   image: armhf/alpine:3.5
-  stage: compile
+  stage: compile_dumb-init
   only:
-    - master@klud/gitlab-runner
+    - ci-test@klud/gitlab-runner
   tags:
     - armhf
   script:
@@ -22,13 +22,13 @@ dumb-init:
     paths:
       - dumb-init/dumb-init
 
-runner-build:
+runner-images:
   image: klud/docker:17.03-armhf
   services:
     - klud/dind:17.03-armhf
-  stage: build
+  stage: build_push_images
   dependencies:
-    - dumb-init
+    - dumb-init-compile
   # When using dind, it's wise to use the overlayfs driver
   # for improved performance.
   variables:
