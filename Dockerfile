@@ -8,7 +8,7 @@ RUN apk add --no-cache \
     openssl \
     wget
 
-COPY dumb-init/dumb-init /usr/bin/
+COPY dumb-init-1.2.0/dumb-init /usr/bin/
 
 RUN chmod +x /usr/bin/dumb-init && \
     dumb-init -V
