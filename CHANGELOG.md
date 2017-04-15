@@ -1,3 +1,7 @@
+## [Release 0.6]
+
+- dumb-init compiled in a separate job
+
 ## [Release 0.5]
 
 - Update runner from v9.0.1 to 9.0.2

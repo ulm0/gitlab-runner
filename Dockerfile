@@ -1,33 +1,17 @@
 FROM armhf/alpine:3.5
-
-MAINTAINER Klud <pierre.ugazm@gmail.com>
-
-ENV DUMB_INIT_SHA256 74486997321bd939cad2ee6af030f481d39751bc9aa0ece84ed55f864e309a3f
+LABEL maintainer "pierre.ugazm@gmail.com"
 
 RUN apk add --no-cache \
     bash \
-    build-base \
     git \
     ca-certificates \
     openssl \
-    wget \
-    curl
+    wget
 
-RUN set -x && \
-    curl -fSL "https://github.com/Yelp/dumb-init/archive/v1.2.0.tar.gz" -o dumb-init.tar.gz && \
-    echo "${DUMB_INIT_SHA256} *dumb-init.tar.gz" | sha256sum -c - && \
-    tar -xzvf dumb-init.tar.gz && \
-    cd dumb-init-1.2.0 && \
-    make && \
-    mv dumb-init /usr/bin/dumb-init && \
-    chmod +x /usr/bin/dumb-init && \
-    dumb-init -V && \
-    make clean && \
-    cd .. && \
-    rm -rf dumb-init-1.2.0 && \
-    rm -f dumb-init.tar.gz
+COPY dumb-init/dumb-init /usr/bin/
 
-RUN apk del build-base
+RUN chmod +x /usr/bin/dumb-init && \
+    dumb-init -V
 
 RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.0.2/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
