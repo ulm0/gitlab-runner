@@ -6,7 +6,7 @@ dumb-init-compile:
   image: armhf/alpine:3.5
   stage: compile_dumb-init
   only:
-    - ci-test@klud/gitlab-runner
+    - master@klud/gitlab-runner
   tags:
     - armhf
   script:
