@@ -13,14 +13,13 @@ dumb-init-compile:
     - apk add --no-cache bash build-base curl
     - curl -fSL "https://github.com/Yelp/dumb-init/archive/v1.2.0.tar.gz" -o dumb-init.tar.gz
     - echo "74486997321bd939cad2ee6af030f481d39751bc9aa0ece84ed55f864e309a3f *dumb-init.tar.gz" | sha256sum -c -
-    - mkdir dumb-init
-    - tar -xzvf dumb-init.tar.gz -C dumb-init --strip-components=1
-    - cd dumb-init
+    - tar -xzvf dumb-init.tar.gz
+    - cd dumb-init-1.2.0
     - make
   artifacts:
     name: "$CI_JOB_NAME"
     paths:
-      - dumb-init/dumb-init
+      - dumb-init-1.2.0/dumb-init
 
 runner-images:
   image: klud/docker:17.03-armhf
