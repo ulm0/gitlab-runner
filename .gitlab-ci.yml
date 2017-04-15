@@ -18,7 +18,6 @@ dumb-init:
     - make
   artifacts:
     name: "$CI_JOB_NAME"
-    untracked: true
     paths:
       - dumb-init-1.2.0/dumb-init
   only:
@@ -44,7 +43,6 @@ runner-build:
     - tags
   tags:
     - armhf
-    - docker
   script:
     # Login to registries
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
