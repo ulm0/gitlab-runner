@@ -1,3 +1,7 @@
+## [Release 0.8]
+
+- Update runner from 9.0.3 to 9.1.0
+
 ## [Release 0.7]
 
 - Update runner from 9.0.2 to 9.0.3
