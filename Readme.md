@@ -4,7 +4,9 @@
 ## Tags
 
 - |[CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/master/CHANGELOG.md)|
-- `latest`, `armhf`, `0.6`
+- `latest`, `armhf`, `0.8`
+- `0.7`
+- `0.6`
 - `0.5`
 - `0.4`
 - `0.3`

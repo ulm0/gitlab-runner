@@ -32,7 +32,7 @@ runner-images:
   # for improved performance.
   variables:
     DOCKER_DRIVER: overlay
-    VER: '0.7'
+    VER: '0.8'
   only:
     - master@klud/gitlab-runner
   except:
