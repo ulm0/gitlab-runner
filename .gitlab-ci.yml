@@ -22,9 +22,9 @@ dumb-init-compile:
       - dumb-init-1.2.0/dumb-init
 
 runner-images:
-  image: klud/docker:17.03-armhf
+  image: klud/docker:17.03.1
   services:
-    - klud/dind:17.03-armhf
+    - klud/dind:17.03.1
   stage: build_push_images
   dependencies:
     - dumb-init-compile
@@ -32,7 +32,7 @@ runner-images:
   # for improved performance.
   variables:
     DOCKER_DRIVER: overlay
-    VER: '0.6'
+    VER: '0.7'
   only:
     - master@klud/gitlab-runner
   except:
