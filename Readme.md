@@ -1,5 +1,4 @@
-- [GitLab CI:  
-  ![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits/master)
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own version badge on microbadger.com")
 
 ## Tags
 
