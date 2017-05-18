@@ -3,7 +3,8 @@
 ## Tags
 
 - |[CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/master/CHANGELOG.md)|
-- `latest`, `armhf`, `0.9`
+- `latest`, `armhf`, `9.1.1`
+- `0.9`
 - `0.8`
 - `0.7`
 - `0.6`
@@ -14,7 +15,7 @@
 - `0.1`
 
 ## About the image
-This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the libc headers and defaults to glibc; install ```build-essential``` package if running a raspbian-based linux and just run ```make``` within the repo you just cloned.
+This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init ~~was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the `libc` headers and defaults to `glibc`; install `build-essential` package if running a raspbian-based linux and just run `make` within the repo you just cloned~~ is built within the docker image build process on alpine linux in a separate stage.
 
 ## Usage
 

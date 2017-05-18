@@ -1,3 +1,8 @@
+## [Release 9.1.1]
+
+#### Tag naming change:
+- Tag naming change to adopt [the official tag names](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/tags).
+
 ## [Release 0.9]
 
 - Update runner from 9.1.0 to 9.1.1
