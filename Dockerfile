@@ -1,19 +1,17 @@
 FROM armhf/alpine:3.5
-LABEL maintainer "pierre.ugazm@gmail.com"
+LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
+
+COPY dumb-init-1.2.0/dumb-init /usr/bin/
 
 RUN apk add --no-cache \
     bash \
     git \
     ca-certificates \
     openssl \
-    wget
-
-COPY dumb-init-1.2.0/dumb-init /usr/bin/
-
-RUN chmod +x /usr/bin/dumb-init && \
-    dumb-init -V
-
-RUN wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.2.0/binaries/gitlab-ci-multi-runner-linux-arm && \
+    wget && \
+    chmod +x /usr/bin/dumb-init && \
+    dumb-init -V && \
+    wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.2.0/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
     ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
     wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
