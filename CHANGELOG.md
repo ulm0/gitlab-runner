@@ -1,3 +1,7 @@
+## [Release 9.2.0]
+
+- Update runner from 9.1.1 to 9.2.0
+
 ## [Release 9.1.1]
 
 #### Tag naming change:

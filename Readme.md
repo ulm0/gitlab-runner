@@ -2,8 +2,9 @@
 
 ## Tags
 
-- |[CHANGELOG](https://gitlab.com/klud/gitlab-runner/blob/master/CHANGELOG.md)|
-- `latest`, `armhf`, `9.1.1`
+- |[CHANGELOG](CHANGELOG.md)|
+- `latest`, `armhf`, `9.2.0`
+- `9.1.1`
 - `0.9`
 - `0.8`
 - `0.7`
@@ -23,7 +24,7 @@ This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-
 
 
 You need to mount a config volume into our gitlab-runner container to be used for configs and other resources:
-```
+```sh
 docker run -d --name $(container_name) \
 -v /path/to/config/file:/etc/gitlab-runner \
 --restart always \
@@ -32,7 +33,7 @@ klud/gitlab-runner:latest
 
 
 Or you can use a config container to mount your custom data volume:
-```
+```sh
 docker run -d --name $(container_name_data) \
     -v /etc/gitlab-runner \
     armhf/busybox:latest \
@@ -45,7 +46,7 @@ docker run -d --name $(container_name) --restart always \
 
 
 If you plan on using Docker as the method of spawning runners, you will need to mount your docker socket like this:
-```
+```sh
 docker run -d --name $(container_name) --restart always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /path/to/config/file:/etc/gitlab-runner \
@@ -54,7 +55,7 @@ docker run -d --name $(container_name) --restart always \
 
 
 You can approach this by using a docker-compose.yml file as well:
-```
+```yaml
 runner:
   image: klud/gitlab-runner:latest
   container_name: $(container_name)
@@ -70,7 +71,7 @@ Once the container is up and running, you need to register the runner in your Gi
 
 
 You can either do this:
-```
+```sh
 docker exec -it $(container_name) gitlab-runner register
 
 Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com )
@@ -90,7 +91,7 @@ running already the config should be automatically reloaded!
 
 
 OR this:
-```
+```sh
 docker exec -it $(container_name) \
 gitlab-runner register -n \
 --url https://git.domain.com/ci \
@@ -110,7 +111,7 @@ In case you're using docker in docker in the runner, you may expirience some pro
 
 So in order to address this issue you need to look within the config folder you mounted in the runner container, there will be a config file inside, you need to add some lines and then restart the runner with ```docker restart $(container_name)```.
 
-```
+```toml
 concurrent = 1
 check_interval = 0
 

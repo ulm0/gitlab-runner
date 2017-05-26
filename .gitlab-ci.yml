@@ -1,10 +1,10 @@
 stages:
-  - compile_dumb-init
-  - build_push_images
+  - dumb-init
+  - docker-image
 
-dumb-init-compile:
+dumb-init:
   image: armhf/alpine:3.5
-  stage: compile_dumb-init
+  stage: dumb-init
   only:
     - master@klud/gitlab-runner
   tags:
@@ -21,18 +21,16 @@ dumb-init-compile:
     paths:
       - dumb-init-1.2.0/dumb-init
 
-runner-images:
-  image: klud/docker:17.04
+docker-image:
+  image: klud/docker:17.03.1
   services:
-    - klud/dind:17.04
-  stage: build_push_images
+    - klud/dind:17.03.1
+  stage: docker-image
   dependencies:
     - dumb-init-compile
-  # When using dind, it's wise to use the overlayfs driver
-  # for improved performance.
   variables:
     DOCKER_DRIVER: overlay
-    VER: '9.1.1'
+    VER: '9.2.0'
   only:
     - master@klud/gitlab-runner
   except:
