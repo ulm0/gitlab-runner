@@ -27,7 +27,7 @@ docker-image:
     - klud/dind:17.03.1
   stage: docker-image
   dependencies:
-    - dumb-init-compile
+    - dumb-init
   variables:
     DOCKER_DRIVER: overlay
     VER: '9.2.0'
