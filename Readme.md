@@ -1,21 +1,26 @@
-[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own version badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# THIS BRANCH IS VERY EXPERIMENTAL, USES UPX-UCL TO COMPRESS THE RUNNER BINARY IN ORDER TO REDUCE THE IMAGE SIZE.
+
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/upx/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-upx) [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:upx.svg)](https://microbadger.com/images/klud/gitlab-runner:upx "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:upx.svg)](https://microbadger.com/images/klud/gitlab-runner:upx "Get your own version badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
 
 ## Tags
 
 - |[CHANGELOG](CHANGELOG.md)|
-- `latest`, `armhf`, `9.2.0`
-- `9.1.1`
-- `0.9`
-- `0.8`
-- `0.7`
-- `0.6`
-- `0.5`
-- `0.4`
-- `0.3`
-- `0.2`
-- `0.1`
+- Experimental:
+ - `upx`, `9.2.0-upx`
+- Stable:
+ - `9.2.0`
+ - `9.1.1`
+ - `0.9`
+ - `0.8`
+ - `0.7`
+ - `0.6`
+ - `0.5`
+ - `0.4`
+ - `0.3`
+ - `0.2`
+ - `0.1`
 
 ## About the image
 This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init ~~was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the `libc` headers and defaults to `glibc`; install `build-essential` package if running a raspbian-based linux and just run `make` within the repo you just cloned~~ is built within the docker image build process on alpine linux in a separate stage.
