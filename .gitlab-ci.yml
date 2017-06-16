@@ -31,7 +31,8 @@ binaries:
     name: "$CI_JOB_NAME"
     paths:
       - dumb-init-1.2.0/dumb-init
-      - binaries/
+      - binaries/gitlab-ci-multi-runner
+      - binaries/docker-machine
     expire_in: 1 week
 
 runner:
