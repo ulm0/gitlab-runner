@@ -1,3 +1,6 @@
+## [Release 9.2.0-UPX]
+- Compress the gitlab runner binary using `upx-ucl`
+
 ## [Release 9.2.0]
 
 - Update runner from 9.1.1 to 9.2.0
