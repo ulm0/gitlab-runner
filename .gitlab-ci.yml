@@ -3,7 +3,7 @@ stages:
   - docker-image
 
 dumb-init:
-  image: armhf/alpine:edge
+  image: armhf/alpine:3.5
   stage: dumb-init
   only:
     - upx@klud/gitlab-runner
