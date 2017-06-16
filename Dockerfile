@@ -14,6 +14,8 @@ RUN apk add --no-cache \
     wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
     chmod +x /usr/bin/docker-machine && \
     echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     apk add --no-cache upx && \
     cd /usr/bin/ && \
     upx -9v gitlab-ci-multi-runner && \
