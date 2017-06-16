@@ -3,10 +3,10 @@ stages:
   - docker-image
 
 dumb-init:
-  image: armhf/alpine:3.5
+  image: armhf/alpine:edge
   stage: dumb-init
   only:
-    - master@klud/gitlab-runner
+    - upx@klud/gitlab-runner
   tags:
     - armhf
   script:
@@ -30,9 +30,9 @@ docker-image:
     - dumb-init
   variables:
     DOCKER_DRIVER: overlay
-    VER: '9.2.0'
+    VER: '9.2.0-upx'
   only:
-    - master@klud/gitlab-runner
+    - upx@klud/gitlab-runner
   except:
     - tags
   tags:
@@ -44,24 +44,18 @@ docker-image:
     # Build the actual image
     - docker build -t klud/gitlab-runner:$VER .
     # Tag the image for Docker Hub
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:armhf
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:latest
+    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:upx
     # Tag the image for GitLab Registry
     - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:latest
+    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:upx
     # Push the image to Docker Hub
     - docker push klud/gitlab-runner:$VER
-    - docker push klud/gitlab-runner:armhf
-    - docker push klud/gitlab-runner:latest
+    - docker push klud/gitlab-runner:upx
     # Push the image to GitLab Registry
     - docker push registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker push registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker push registry.gitlab.com/klud/gitlab-runner:latest
+    - docker push registry.gitlab.com/klud/gitlab-runner:upx
     # Remove image from host after being pushed to the registry
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:latest
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:armhf
+    - docker rmi registry.gitlab.com/klud/gitlab-runner:upx
     - docker rmi registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker rmi klud/gitlab-runner:latest
-    - docker rmi klud/gitlab-runner:armhf
+    - docker rmi klud/gitlab-runner:upx
     - docker rmi klud/gitlab-runner:$VER
