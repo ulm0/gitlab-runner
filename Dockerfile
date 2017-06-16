@@ -2,7 +2,6 @@ FROM armhf/alpine:edge
 LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
 COPY dumb-init-1.2.0/dumb-init /usr/bin/
 RUN apk add --no-cache \
-    upx \
     bash \
     git \
     ca-certificates \
@@ -12,6 +11,8 @@ RUN apk add --no-cache \
     dumb-init -V && \
     wget -O /usr/bin/gitlab-ci-multi-runner https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.2.0/binaries/gitlab-ci-multi-runner-linux-arm && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk add --no-cache upx &&\
     cd /usr/bin/ && \
     upx -9v gitlab-ci-multi-runner && \
     cd - && \
