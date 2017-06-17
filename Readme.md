@@ -9,8 +9,10 @@
 - |[CHANGELOG](CHANGELOG.md)|
 - Experimental:
  - `upx`, `9.2.0-upx`
+ - `9.1.2-upx`
 - Stable:
- - `9.2.0`
+ - `latest`,`armhf`,`9.2.0`
+ - `9.1.2`
  - `9.1.1`
  - `0.9`
  - `0.8`
