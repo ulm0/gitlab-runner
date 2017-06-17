@@ -13,7 +13,7 @@ RUN apk add --no-cache \
     ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
     chmod +x /usr/bin/docker-machine && \
     mkdir -p /etc/gitlab-runner/certs && \
-    chmod -R 700 /etc/gitlab-runner && \
+    chmod -R 700 /etc/gitlab-runner
 ADD entrypoint /
 RUN chmod +x /entrypoint
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
