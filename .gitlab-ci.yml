@@ -19,7 +19,7 @@ binaries:
     - cd ..
     - mkdir binaries
     - mv dumb-init-1.2.0/dumb-init binaries/dumb-init
-    - wget -q https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.1.2/binaries/gitlab-ci-multi-runner-linux-arm -O binaries/gitlab-ci-multi-runner
+    - wget -q https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.2.1/binaries/gitlab-ci-multi-runner-linux-arm -O binaries/gitlab-ci-multi-runner
     - wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O binaries/docker-machine
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
@@ -46,7 +46,7 @@ runner:
     - binaries
   variables:
     DOCKER_DRIVER: overlay
-    VER: '9.1.2-upx'
+    VER: '9.2.1-upx'
   only:
     - upx@klud/gitlab-runner
   except:
