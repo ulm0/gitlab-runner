@@ -57,7 +57,7 @@ runner:
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     # Build the actual image
-    - docker build -t klud/gitlab-runner:$VER .
+    - docker build --no-cache -t klud/gitlab-runner:$VER .
     # Tag the image for Docker Hub
     - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:upx
     # Tag the image for GitLab Registry
