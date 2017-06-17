@@ -30,7 +30,7 @@ docker-image:
     - dumb-init
   variables:
     DOCKER_DRIVER: overlay
-    VER: '9.2.0'
+    VER: '9.1.2'
   only:
     - master@klud/gitlab-runner
   except:
