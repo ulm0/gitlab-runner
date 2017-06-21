@@ -1,9 +1,9 @@
-FROM armhf/alpine:3.5
+FROM multiarch/alpine:armhf-v3.5
 LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
-COPY dumb-init-1.2.0/dumb-init /usr/bin/
 COPY entrypoint /
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
+    dumb-init \
     bash \
     git \
     ca-certificates \

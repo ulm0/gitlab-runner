@@ -1,67 +1,43 @@
 stages:
-  - dumb-init
-  - docker-image
-
-dumb-init:
-  image: armhf/alpine:3.5
-  stage: dumb-init
-  only:
-    - master@klud/gitlab-runner
-  tags:
-    - armhf
-  script:
-    - apk add --no-cache bash build-base curl
-    - curl -fSL "https://github.com/Yelp/dumb-init/archive/v1.2.0.tar.gz" -o dumb-init.tar.gz
-    - echo "74486997321bd939cad2ee6af030f481d39751bc9aa0ece84ed55f864e309a3f *dumb-init.tar.gz" | sha256sum -c -
-    - tar -xzvf dumb-init.tar.gz
-    - cd dumb-init-1.2.0
-    - make
-  artifacts:
-    name: "$CI_JOB_NAME"
-    paths:
-      - dumb-init-1.2.0/dumb-init
+  - build_release
 
 docker-image:
   image: klud/docker:17.03.1
   services:
     - klud/dind:17.03.1
-  stage: docker-image
-  dependencies:
-    - dumb-init
+  stage: build_release
   variables:
     DOCKER_DRIVER: overlay
     VER: '9.2.1'
   only:
-    - master@klud/gitlab-runner
-  except:
-    - tags
+    - dumb-init@klud/gitlab-runner
   tags:
     - armhf
   script:
     # Login to registries
-    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    # - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+    # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     # Build the actual image
     - docker build --no-cache -t klud/gitlab-runner:$VER .
     # Tag the image for Docker Hub
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:armhf
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:latest
+    # - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:armhf
+    # - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:latest
     # Tag the image for GitLab Registry
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:latest
+    # - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:$VER
+    # - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:armhf
+    # - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:latest
     # Push the image to Docker Hub
-    - docker push klud/gitlab-runner:$VER
-    - docker push klud/gitlab-runner:armhf
-    - docker push klud/gitlab-runner:latest
+    # - docker push klud/gitlab-runner:$VER
+    # - docker push klud/gitlab-runner:armhf
+    # - docker push klud/gitlab-runner:latest
     # Push the image to GitLab Registry
-    - docker push registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker push registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker push registry.gitlab.com/klud/gitlab-runner:latest
+    # - docker push registry.gitlab.com/klud/gitlab-runner:$VER
+    # - docker push registry.gitlab.com/klud/gitlab-runner:armhf
+    # - docker push registry.gitlab.com/klud/gitlab-runner:latest
     # Remove image from host after being pushed to the registry
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:latest
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker rmi klud/gitlab-runner:latest
-    - docker rmi klud/gitlab-runner:armhf
-    - docker rmi klud/gitlab-runner:$VER
+    # - docker rmi registry.gitlab.com/klud/gitlab-runner:latest
+    # - docker rmi registry.gitlab.com/klud/gitlab-runner:armhf
+    # - docker rmi registry.gitlab.com/klud/gitlab-runner:$VER
+    # - docker rmi klud/gitlab-runner:latest
+    # - docker rmi klud/gitlab-runner:armhf
+    # - docker rmi klud/gitlab-runner:$VER
