@@ -10,7 +10,7 @@ docker-image:
     DOCKER_DRIVER: overlay
     VER: '9.2.1'
   only:
-    - dumb-init@klud/gitlab-runner
+    - master@klud/gitlab-runner
   tags:
     - armhf
   script:
