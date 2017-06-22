@@ -10,7 +10,7 @@ binaries:
   tags:
     - docker
   script:
-    - apk add --no-cache bash wget
+    - apk add --no-cache bash curl wget
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
