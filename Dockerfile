@@ -3,7 +3,7 @@ LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
 COPY entrypoint /
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
-    dumb-init \
+    dumb-init=1.2.0-r0 \
     bash \
     git \
     ca-certificates \
