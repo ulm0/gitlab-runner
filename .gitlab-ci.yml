@@ -14,10 +14,11 @@ binaries:
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
     - echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+    - mkdir -p binaries
+    - cd binaries
     - wget -q https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.2.1/binaries/gitlab-ci-multi-runner-linux-arm -O binaries/gitlab-ci-multi-runner
     - wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O binaries/docker-machine
     - apk add --no-cache upx
-    - cd binaries
     - chmod +x gitlab-ci-multi-runner docker-machine
     - upx -9v gitlab-ci-multi-runner
     - upx -9v docker-machine
