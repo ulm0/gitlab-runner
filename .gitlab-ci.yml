@@ -4,7 +4,7 @@ stages:
 
 binaries:
   image: multiarch/alpine:armhf-v3.5
-  stage: binaries
+  stage: upx-binaries
   only:
     - upx@klud/gitlab-runner
   tags:
