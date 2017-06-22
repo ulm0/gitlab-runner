@@ -1,15 +1,15 @@
-FROM armhf/alpine:3.5
+FROM multiarch/alpine:armhf-v3.5
 LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
 ADD binaries /usr/bin/
 COPY entrypoint /
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
+    dumb-init=1.2.0-r0 \
     bash \
     git \
     ca-certificates \
     openssl \
     wget && \
-    chmod +x /usr/bin/dumb-init && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
     ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
     chmod +x /usr/bin/docker-machine && \
