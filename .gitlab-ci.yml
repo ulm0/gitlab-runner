@@ -1,23 +1,19 @@
 stages:
-  - upx-binaries
-  - build_release
+  - build
+  - release
 
-binaries:
-  image: multiarch/alpine:armhf-v3.5
-  stage: upx-binaries
+.binaries: &binaries
+  image: klud/upx-base:armhf
+  stage: build
   only:
-    - upx@klud/gitlab-runner
+    - upx-stable@klud/gitlab-runner
   tags:
-    - docker
+    - build
   script:
-    - apk add --no-cache bash curl wget
-    - echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-    - echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-    - echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+    - export VER=$(echo $CI_JOB_NAME | sed 's|binaries ||')
     - mkdir -p binaries
-    - wget -q https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v9.2.1/binaries/gitlab-ci-multi-runner-linux-arm -O binaries/gitlab-ci-multi-runner
+    - wget -q https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v${VER}/binaries/gitlab-ci-multi-runner-linux-arm -O binaries/gitlab-ci-multi-runner
     - wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O binaries/docker-machine
-    - apk add --no-cache upx
     - cd binaries
     - chmod +x gitlab-ci-multi-runner docker-machine
     - upx -9v gitlab-ci-multi-runner
@@ -29,39 +25,52 @@ binaries:
       - binaries/docker-machine
     expire_in: 1 week
 
-runner:
-  image: klud/docker:17.03.1
-  services:
+.image: &image
+  image: klud/dind:17.03.1
+  stage: release
+  services: 
     - klud/dind:17.03.1
-  stage: build_release
-  dependencies:
-    - binaries
   variables:
     DOCKER_DRIVER: overlay
-    VER: '9.2.1-upx'
   only:
-    - upx@klud/gitlab-runner
+    - master@klud/gitlab-runner
   tags:
     - docker
   script:
-    # Login to registries
-    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+    - export VER=$(echo $CI_JOB_NAME | sed 's|runner ||')
     # Build the actual image
     - docker build --no-cache -t klud/gitlab-runner:$VER .
     # Tag the image for Docker Hub
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:upx
+    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:armhf
+    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:latest
     # Tag the image for GitLab Registry
     - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:upx
+    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:armhf
+    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:latest
+    # Login to registries
+    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     # Push the image to Docker Hub
     - docker push klud/gitlab-runner:$VER
-    - docker push klud/gitlab-runner:upx
+    - docker push klud/gitlab-runner:armhf
+    - docker push klud/gitlab-runner:latest
     # Push the image to GitLab Registry
     - docker push registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker push registry.gitlab.com/klud/gitlab-runner:upx
+    - docker push registry.gitlab.com/klud/gitlab-runner:armhf
+    - docker push registry.gitlab.com/klud/gitlab-runner:latest
+    # Logout of registries
+    - docker logout
+    - docker logout registry.gitlab.com
     # Remove image from host after being pushed to the registry
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:upx
+    - docker rmi registry.gitlab.com/klud/gitlab-runner:latest
+    - docker rmi registry.gitlab.com/klud/gitlab-runner:armhf
     - docker rmi registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker rmi klud/gitlab-runner:upx
+    - docker rmi klud/gitlab-runner:latest
+    - docker rmi klud/gitlab-runner:armhf
     - docker rmi klud/gitlab-runner:$VER
+
+binaries 9.3.0: *binaries
+runner 9.3.0:
+  <<: *images
+  dependencies:
+    - binaries 9.3.0
