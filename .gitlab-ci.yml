@@ -7,7 +7,7 @@ stages:
   only:
     - upx-stable@klud/gitlab-runner
   tags:
-    - build
+    - docker
   script:
     - export VER=$(echo $CI_JOB_NAME | sed 's|binaries ||')
     - mkdir -p binaries
