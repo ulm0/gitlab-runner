@@ -1,5 +1,6 @@
 stages:
   - build
+  - release
 
 .binaries: &binaries
   image: klud/upx-base:armhf
@@ -9,14 +10,8 @@ stages:
   tags:
     - docker
   script:
-    - export VER=$(echo $CI_JOB_NAME | sed 's|binaries ||')
-    - mkdir -p binaries
-    - wget -q https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v${VER}/binaries/gitlab-ci-multi-runner-linux-arm -O binaries/gitlab-ci-multi-runner
-    - wget -q https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf -O binaries/docker-machine
-    - cd binaries
-    - chmod +x gitlab-ci-multi-runner docker-machine
-    - upx -9v gitlab-ci-multi-runner
-    - upx -9v docker-machine
+    - source ci/compress_binaries
+    - make compress
   artifacts:
     name: "$CI_JOB_NAME"
     paths:
@@ -24,4 +19,25 @@ stages:
       - binaries/docker-machine
     expire_in: 1 week
 
-binaries 9.3.0: *binaries
+.image: &image
+  image: klud/dind:17.03.1
+  stage: release
+  services: 
+    - klud/dind:17.03.1
+  variables:
+    DOCKER_DRIVER: overlay
+  only:
+    - upx-stable@klud/gitlab-runner
+  tags:
+    - docker
+  script:
+    - source ci/relase_docker_images
+    - make release
+
+binaries: *binaries
+runner:
+  <<: *images
+  when: on_failure
+  environment:
+    name: stable/docker_images
+    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
