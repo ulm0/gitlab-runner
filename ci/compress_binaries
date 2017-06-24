@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -eo pipefail
+
+export VERSION=$(./ci/version)
+
+_wget(){
+    wget ${@}
+}
+
+_upx(){
+    upx ${@}
+}
+
+_chmod(){
+    chmod ${@}
+}
+
+download(){
+    echo -e "\033[1mDownloading: \033[32m${1}\033[0m"
+    _wget -q "${1}" -O "${2}"
+    echo -e "\033[1mGranting execution permission on \033[32m${2}\033[0m"
+    _chmod +x "${2}"
+}
+
+compress(){
+    echo -e "\033[1mCompressing: \033[32m${1}\033[0m"
+    _upx --best "${1}"
+    echo -e "\033[1mTesting: \033[32m${1}\033[0m"
+    _upx -t "${1}"
+}
+
+mkdir -p binaries
+download "https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v${VERSION}/binaries/gitlab-ci-multi-runner-linux-arm" binaries/gitlab-ci-multi-runner
+download https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf binaries/docker-machine
+cd binaries
+compress gitlab-ci-multi-runner
+compress docker-machine
