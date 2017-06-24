@@ -11,7 +11,7 @@ stages:
     - docker
   script:
     - source ci/compress_binaries
-    - make compress
+    - make compress VERSION=$(VERSION)
   artifacts:
     name: "$CI_JOB_NAME"
     paths:
