@@ -1,6 +1,5 @@
 stages:
   - build
-  - release
 
 .binaries: &binaries
   image: klud/upx-base:armhf
@@ -19,25 +18,4 @@ stages:
       - binaries/docker-machine
     expire_in: 1 week
 
-.image: &image
-  image: klud/dind:17.03.1
-  stage: release
-  services: 
-    - klud/dind:17.03.1
-  variables:
-    DOCKER_DRIVER: overlay
-  only:
-    - upx-stable@klud/gitlab-runner
-  tags:
-    - docker
-  script:
-    - source ci/relase_docker_images
-    - make release
-
 binaries: *binaries
-runner:
-  <<: *images
-  when: on_failure
-  environment:
-    name: stable/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
