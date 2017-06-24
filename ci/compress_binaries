@@ -2,8 +2,6 @@
 
 set -eo pipefail
 
-export VERSION=$(./ci/version)
-
 _wget(){
     wget ${@}
 }

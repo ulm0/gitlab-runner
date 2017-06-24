@@ -10,8 +10,7 @@ stages:
   tags:
     - docker
   script:
-    - source ci/compress_binaries
-    - make compress VERSION=$(VERSION)
+    - make compress
   artifacts:
     name: "$CI_JOB_NAME"
     paths:
@@ -31,7 +30,6 @@ stages:
   tags:
     - docker
   script:
-    - source ci/relase_docker_images
     - make release
 
 binaries: *binaries
