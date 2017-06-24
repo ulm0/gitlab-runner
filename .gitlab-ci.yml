@@ -6,7 +6,7 @@ stages:
   image: klud/upx-base:armhf
   stage: build
   only:
-    - upx-stable@klud/gitlab-runner
+    - master@klud/gitlab-runner
   tags:
     - docker
   script:
@@ -27,7 +27,7 @@ stages:
   variables:
     DOCKER_DRIVER: overlay
   only:
-    - upx-stable@klud/gitlab-runner
+    - master@klud/gitlab-runner
   tags:
     - docker
   script:
