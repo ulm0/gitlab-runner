@@ -1,25 +1,30 @@
-[![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+---
 
 ### ARMHF:
+[![](https://images.microbadger.com/badges/image/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own version badge on microbadger.com")
 
-[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own version badge on microbadger.com")
+---
 
 ### UPX:
+[![](https://images.microbadger.com/badges/image/klud/gitlab-runner:upx.svg)](https://microbadger.com/images/klud/gitlab-runner:upx "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:upx.svg)](https://microbadger.com/images/klud/gitlab-runner:upx "Get your own version badge on microbadger.com") 
+##### NOTE: THESE IMAGES ARE VERY EXPERIMENTAL, THEY USE [UPX-UCL](https://upx.github.io/) TO COMPRESS THE RUNNER AND DOCKER MACHINE BINARIES IN ORDER TO REDUCE THE IMAGE SIZE.
 
-[![build status](https://gitlab.com/klud/gitlab-runner/badges/upx/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-upx) [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:upx.svg)](https://microbadger.com/images/klud/gitlab-runner:upx "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:upx.svg)](https://microbadger.com/images/klud/gitlab-runner:upx "Get your own version badge on microbadger.com") 
+---
 
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
 
 ## Tags
 
 - |[CHANGELOG](CHANGELOG.md)|
 - Experimental:
- - `upx`, `9.2.1-upx`
+ - `upx`, `9.3.0-upx`
+ - `9.2.1-upx`
  - `9.2.0-upx`
  - `9.1.2-upx`
 - Stable:
- - `latest`,`armhf`, `9.2.1`
+ - `latest`,`armhf`, `9.3.0`
+ - `9.2.1`
  - `9.2.0`
  - `9.1.2`
  - `9.1.1`
@@ -34,7 +39,7 @@
  - `0.1`
 
 ## About the image
-This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init ~~was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the `libc` headers and defaults to `glibc`; install `build-essential` package if running a raspbian-based linux and just run `make` within the repo you just cloned~~ is built within the docker image build process on alpine linux in a separate stage.
+This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init ~~was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the `libc` headers and defaults to `glibc`; install `build-essential` package if running a raspbian-based linux and just run `make` within the repo you just cloned~~ is now available ~~built within the docker image build process~~ on alpine linux repositories ~~in a separate stage~~.
 
 ## Usage
 
@@ -93,7 +98,7 @@ You can either do this:
 docker exec -it $(container_name) gitlab-runner register
 
 Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com )
-https://git.domain.com/ci
+https://git.domain.tld/
 Please enter the gitlab-ci token for this runner
 xxx
 Please enter the gitlab-ci description for this runner
@@ -112,17 +117,20 @@ OR this:
 ```sh
 docker exec -it $(container_name) \
 gitlab-runner register -n \
---url https://git.domain.com/ci \
+--url https://git.domain.tld/ \
 --registration-token xxx \
 --executor docker \
 --description "a-description-for-the-runner" \
 --docker-image "ruby:2.1" \
+--tag-list "tag1,tag2"
 --docker-privileged
 ```
 
 
 #### Tip
- If you're going to build images on this runner you can use the docker image i built for this use-case as well, just type ```klud/docker:1.13-armhf``` or ```klud/docker:17.03-armhf``` when ```Please enter the Docker image``` in the first method or in ```--docker-image "image:tag"``` with the second method. There are also images for docker in docker (DinD) using ```klud/dind:1.13-armhf``` or ```klud/dind:17.03-armhf``` and for docker git ```klud/git:1.13-armhf``` or ```klud/git:17.03-armhf```
+ If you're going to build images on this runner you can use the docker image I built for this use-case as well, just type ```klud/docker:1.13.1``` or ```klud/docker:17.03.1``` when ```Please enter the Docker image``` in the first method or in ```--docker-image "image:tag"``` with the second method. There are also images for docker in docker (DinD) using ```klud/dind:1.13.1``` or ```klud/dind:17.03.1``` and for docker git ```klud/git:1.13.1``` or ```klud/git:17.03.1```
+
+##### Dockerfiles and info about Docker in Docker images for ARM: [HERE](https://gitlab.com/klud/docker-in-docker)
 
 ## Troubleshooting
 In case you're using docker in docker in the runner, you may expirience some problems when talking to the docker socket: ```Cannot connect to the Docker daemon. Is the docker daemon running on this host?```.
@@ -135,12 +143,12 @@ check_interval = 0
 
 [[runners]]
   name = "runner description"
-  url = "https://git.domain.com/ci"
+  url = "https://git.domain.tld/"
   token = "xxx"
   executor = "docker"
   [runners.docker]
     tls_verify = false
-    image = "klud/docker:1.13-armhf"
+    image = "klud/docker:1.13.1"
     ### IF YOU USED THE FIRST METHOD YOU NEED TO SET
     ### THE RUNNER IN PRIVILEGED MODE TO BE ABLE TO SPAWN JOBS
     privileged = true
