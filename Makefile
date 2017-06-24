@@ -1,10 +1,10 @@
-MAINTAINER ?= klud
-NAME ?= gitlab-runner
-IMAGE ?= $(MAINTAINER)/$(NAME)
-export VERSION := $(shell ./ci/version)
-ARCHS ?= armhf
+export MAINTAINER:=klud
+export NAME:=gitlab-runner
+export IMAGE:=$(MAINTAINER)/$(NAME)
+export VERSION:=$(shell ./ci/version)
+export ARCHS:=armhf
 
-all: compress release_docker_image
+all: compress release
 
 help:
 	# General commands:
