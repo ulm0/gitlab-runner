@@ -24,51 +24,13 @@ stages:
   stage: release
   services: 
     - klud/dind:17.03.1
-<<<<<<< HEAD
-  stage: build_release
-  variables:
-    DOCKER_DRIVER: overlay
-    VER: '9.2.1'
-  only:
-    - master@klud/gitlab-runner
-=======
   variables:
     DOCKER_DRIVER: overlay
   only:
     - upx-stable@klud/gitlab-runner
->>>>>>> origin/upx-stable
   tags:
     - docker
   script:
-<<<<<<< HEAD
-    # Login to registries
-    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    # Build the actual image
-    - docker build --no-cache -t klud/gitlab-runner:$VER .
-    # Tag the image for Docker Hub
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:armhf
-    - docker tag klud/gitlab-runner:$VER klud/gitlab-runner:latest
-    # Tag the image for GitLab Registry
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker tag klud/gitlab-runner:$VER registry.gitlab.com/klud/gitlab-runner:latest
-    # Push the image to Docker Hub
-    - docker push klud/gitlab-runner:$VER
-    - docker push klud/gitlab-runner:armhf
-    - docker push klud/gitlab-runner:latest
-    # Push the image to GitLab Registry
-    - docker push registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker push registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker push registry.gitlab.com/klud/gitlab-runner:latest
-    # Remove image from host after being pushed to the registry
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:latest
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:armhf
-    - docker rmi registry.gitlab.com/klud/gitlab-runner:$VER
-    - docker rmi klud/gitlab-runner:latest
-    - docker rmi klud/gitlab-runner:armhf
-    - docker rmi klud/gitlab-runner:$VER
-=======
     - source ci/relase_docker_images
     - make release
 
@@ -80,4 +42,3 @@ runner:
   environment:
     name: stable/docker_images
     url: https://hub.docker.com/r/klud/gitlab-runner/tags/
->>>>>>> origin/upx-stable
