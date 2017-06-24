@@ -5,6 +5,7 @@ set -eo pipefail
 export MAINTAINER=klud
 export NAME=gitlab-runner
 export IMAGE="${MAINTAINER}/${NAME}"
+export VERSION=$(./ci/version)
 
 _docker(){
     docker ${@}
