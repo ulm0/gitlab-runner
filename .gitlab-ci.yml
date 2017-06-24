@@ -30,6 +30,7 @@ stages:
   tags:
     - docker
   script:
+    - apk add --no-cache make
     - make release
 
 binaries: *binaries
