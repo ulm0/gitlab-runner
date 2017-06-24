@@ -11,7 +11,8 @@ stages:
     - docker
   script:
     - source ci/compress_binaries
-    - make compress VERSION=$(VERSION)
+    - export ver := $(./ci/version)
+    - make compress VERSION='$ver'
   artifacts:
     name: "$CI_JOB_NAME"
     paths:
