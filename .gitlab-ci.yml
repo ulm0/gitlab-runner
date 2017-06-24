@@ -28,7 +28,6 @@ stages:
   only:
     - master@klud/gitlab-runner
   tags:
-    - docker
     - armhf
   script:
     - apk add --no-cache make bash
