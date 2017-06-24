@@ -1,19 +1,46 @@
 stages:
-  - build_release
+  - build
+  - release
 
-docker-image:
-  image: klud/docker:17.03.1
-  services:
+.binaries: &binaries
+  image: klud/upx-base:armhf
+  stage: build
+  only:
+    - upx-stable@klud/gitlab-runner
+  tags:
+    - docker
+  script:
+    - source ci/compress_binaries
+    - make compress VERSION=$(VERSION)
+  artifacts:
+    name: "$CI_JOB_NAME"
+    paths:
+      - binaries/gitlab-ci-multi-runner
+      - binaries/docker-machine
+    expire_in: 1 week
+
+.image: &image
+  image: klud/dind:17.03.1
+  stage: release
+  services: 
     - klud/dind:17.03.1
+<<<<<<< HEAD
   stage: build_release
   variables:
     DOCKER_DRIVER: overlay
     VER: '9.2.1'
   only:
     - master@klud/gitlab-runner
+=======
+  variables:
+    DOCKER_DRIVER: overlay
+  only:
+    - upx-stable@klud/gitlab-runner
+>>>>>>> origin/upx-stable
   tags:
-    - armhf
+    - docker
   script:
+<<<<<<< HEAD
     # Login to registries
     - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
@@ -41,3 +68,16 @@ docker-image:
     - docker rmi klud/gitlab-runner:latest
     - docker rmi klud/gitlab-runner:armhf
     - docker rmi klud/gitlab-runner:$VER
+=======
+    - source ci/relase_docker_images
+    - make release
+
+binaries: *binaries
+runner:
+  <<: *image
+  dependencies:
+    - binaries
+  environment:
+    name: stable/docker_images
+    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
+>>>>>>> origin/upx-stable
