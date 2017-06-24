@@ -1,6 +1,7 @@
 FROM multiarch/alpine:armhf-v3.5
 LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
-ADD binaries /usr/bin/
+COPY gitlab-ci-multi-runner /usr/bin/
+COPY docker-machine /usr/bin/
 COPY entrypoint /
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
