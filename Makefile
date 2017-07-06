@@ -8,7 +8,7 @@ all: compress release
 
 help:
 	# General commands:
-	# make all => compress release_docker_image
+	# make all => compress release
 	# make version - show information about the current version
 	#
 	# Build commands

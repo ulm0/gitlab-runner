@@ -21,6 +21,13 @@
 - Runner @ 9.2.0
 
 ## [9.1]
+### [Release 9.1.3-UPX]
+
+- Compress the gitlab runner binary using `upx-ucl` with `--best` flag
+
+### [Release 9.1.3]
+
+- Runner @ 9.1.3
 ### [Release 9.1.2-UPX]
 
 - Compress the gitlab runner binary using `upx-ucl`
