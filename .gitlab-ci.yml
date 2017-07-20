@@ -20,7 +20,7 @@ stages:
     expire_in: 1 week
 
 .image: &image
-  image: klud/dind:17.03.1
+  image: klud/docker:17.03.1
   stage: release
   services: 
     - klud/dind:17.03.1
