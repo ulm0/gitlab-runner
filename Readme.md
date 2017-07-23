@@ -18,14 +18,16 @@
 
 - |[CHANGELOG](CHANGELOG.md)|
 - Experimental:
- - `upx`, `9.3.0-upx`
+ - `upx`, `9.4.0-upx`
+ - `9.3.0-upx`
  - `9.2.2-upx`
  - `9.2.1-upx`
  - `9.2.0-upx`
  - `9.1.3-upx`
  - `9.1.2-upx`
 - Stable:
- - `latest`,`armhf`, `9.3.0`
+ - `latest`,`armhf`, `9.4.0`
+ - `9.3.0`
  - `9.2.2`
  - `9.2.1`
  - `9.2.0`
