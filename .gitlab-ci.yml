@@ -30,6 +30,7 @@ stages:
     - master@klud/gitlab-runner
   tags:
     - docker
+    - armhf
   script:
     - apk add --no-cache make bash
     - make release
@@ -42,3 +43,4 @@ runner:
   environment:
     name: stable/docker_images
     url: https://hub.docker.com/r/klud/gitlab-runner/tags/
+    
