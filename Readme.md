@@ -1,4 +1,4 @@
-[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://gitlab.com/klud/gitlab-runner/blob/master/LICENSE)
 ---
 
 ### ARMHF:
@@ -14,36 +14,6 @@
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
 
-## Tags
-
-- |[CHANGELOG](CHANGELOG.md)|
-- Experimental:
- - `upx`, `9.4.0-upx`
- - `9.3.0-upx`
- - `9.2.2-upx`
- - `9.2.1-upx`
- - `9.2.0-upx`
- - `9.1.3-upx`
- - `9.1.2-upx`
-- Stable:
- - `latest`,`armhf`, `9.4.0`
- - `9.3.0`
- - `9.2.2`
- - `9.2.1`
- - `9.2.0`
- - `9.1.3`
- - `9.1.2`
- - `9.1.1`
- - `0.9`
- - `0.8`
- - `0.7`
- - `0.6`
- - `0.5`
- - `0.4`
- - `0.3`
- - `0.2`
- - `0.1`
-
 ## About the image
 This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner) of the GitLab Runner and built on alpine v3.5 to make it as lightweight as possible, the dumb-init ~~was built on a Raspberry Pi running Hypriot OS, but you can build your own if you want to, and add it to the image, just clone the [Yelp/dumb-init repo](https://github.com/Yelp/dumb-init) and make sure to have a working compiler, the `libc` headers and defaults to `glibc`; install `build-essential` package if running a raspbian-based linux and just run `make` within the repo you just cloned~~ is now available ~~built within the docker image build process~~ on alpine linux repositories ~~in a separate stage~~.
 
@@ -51,12 +21,11 @@ This image is based on the [official repo](https://gitlab.com/gitlab-org/gitlab-
 
 ### Runner container setup
 
-
 You need to mount a config volume into our gitlab-runner container to be used for configs and other resources:
 ```sh
 docker run -d --name $(container_name) \
 -v /path/to/config/file:/etc/gitlab-runner \
---restart always \
+--restart=always \
 klud/gitlab-runner:latest
 ```
 
@@ -68,7 +37,7 @@ docker run -d --name $(container_name_data) \
     armhf/busybox:latest \
     /bin/true
 
-docker run -d --name $(container_name) --restart always \
+docker run -d --name $(container_name) --restart=always \
     --volumes-from gitlab-runner-config \
     klud/gitlab-runner:latest
 ```
@@ -76,7 +45,7 @@ docker run -d --name $(container_name) --restart always \
 
 If you plan on using Docker as the method of spawning runners, you will need to mount your docker socket like this:
 ```sh
-docker run -d --name $(container_name) --restart always \
+docker run -d --name $(container_name) --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /path/to/config/file:/etc/gitlab-runner \
   klud/gitlab-runner:latest
