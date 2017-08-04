@@ -23,7 +23,7 @@ download(){
 
 compress(){
     echo -e "\033[1mCompressing: \033[32m${1}\033[0m"
-    _upx --best "${1}"
+    _upx --best -qq "${1}"
     echo -e "\033[1mTesting: \033[32m${1}\033[0m"
     _upx -t "${1}"
 }
