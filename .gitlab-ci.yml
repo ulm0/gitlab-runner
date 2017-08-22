@@ -6,7 +6,7 @@ stages:
   image: multiarch/alpine:armhf-v3.5
   stage: build
   only:
-    - master@klud/gitlab-runner
+    - master
   tags:
     - docker
   script:
@@ -27,7 +27,7 @@ stages:
   variables:
     DOCKER_DRIVER: overlay
   only:
-    - master@klud/gitlab-runner
+    - master
   tags:
     - docker
     - armhf
