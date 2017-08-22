@@ -1,3 +1,12 @@
+## [9.5]
+
+### [Release 9.5.0-UPX]
+- Compress the gitlab runner binary using `upx-ucl`
+
+### [Release 9.5.0]
+
+- Runner @ 9.5.0
+
 ## [9.4]
 
 ### [Release 9.4.2-UPX]
