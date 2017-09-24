@@ -1,6 +1,17 @@
+## [10.0]
+
+### [Release 10.0.0-UPX]
+
+- Compress the gitlab runner binary using `upx-ucl`
+
+### [Release 10.0.0]
+
+- Runner @ 10.0.0
+
 ## [9.5]
 
 ### [Release 9.5.0-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.5.0]
@@ -10,6 +21,7 @@
 ## [9.4]
 
 ### [Release 9.4.2-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.4.2]
@@ -17,6 +29,7 @@
 - Runner @ 9.4.2
 
 ### [Release 9.4.1-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.4.1]
@@ -24,6 +37,7 @@
 - Runner @ 9.4.1
 
 ### [Release 9.4.0-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.4.0]
@@ -31,7 +45,9 @@
 - Runner @ 9.4.0
 
 ## [9.3]
+
 ### [Release 9.3.0-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.3.0]
@@ -39,18 +55,25 @@
 - Runner @ 9.3.0
 
 ## [9.2]
+
 ### [Release 9.2.2-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`  with `--best` flag
 
 ### [Release 9.2.2]
+
 - Runner @ 9.2.2
+
 ### [Release 9.2.1-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.2.1]
+
 - Runner @ 9.2.1
 
 ### [Release 9.2.0-UPX]
+
 - Compress the gitlab runner binary using `upx-ucl`
 
 ### [Release 9.2.0]
@@ -58,6 +81,7 @@
 - Runner @ 9.2.0
 
 ## [9.1]
+
 ### [Release 9.1.3-UPX]
 
 - Compress the gitlab runner binary using `upx-ucl` with `--best` flag
@@ -65,6 +89,7 @@
 ### [Release 9.1.3]
 
 - Runner @ 9.1.3
+
 ### [Release 9.1.2-UPX]
 
 - Compress the gitlab runner binary using `upx-ucl`
@@ -76,6 +101,7 @@
 ### [Release 9.1.1]
 
 #### Tag naming change:
+
 - Tag naming change to adopt [the official tag names](https://gitlab.com/gitlab-org/gitlab-ci-multi-runner/tags).
 
 ## [Release 0.9]
