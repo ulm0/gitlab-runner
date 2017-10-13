@@ -29,7 +29,7 @@ compress(){
 }
 
 mkdir -p binaries
-download "https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v${VERSION}/binaries/gitlab-ci-multi-runner-linux-arm" binaries/gitlab-ci-multi-runner
+download "https://gitlab-runner-downloads.s3.amazonaws.com/v${VERSION}/binaries/gitlab-runner-linux-arm" binaries/gitlab-ci-multi-runner
 download https://github.com/docker/machine/releases/download/v0.10.0/docker-machine-Linux-armhf binaries/docker-machine
 cd binaries
 compress gitlab-ci-multi-runner
