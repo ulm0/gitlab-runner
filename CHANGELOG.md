@@ -1,5 +1,21 @@
 ## [10.0]
 
+### [Release 10.0.2-UPX]
+
+- Compress the gitlab runner binary using `upx-ucl`
+
+### [Release 10.0.2]
+
+- Runner @ 10.0.2
+
+### [Release 10.0.1-UPX]
+
+- Compress the gitlab runner binary using `upx-ucl`
+
+### [Release 10.0.1]
+
+- Runner @ 10.0.1
+
 ### [Release 10.0.0-UPX]
 
 - Compress the gitlab runner binary using `upx-ucl`
