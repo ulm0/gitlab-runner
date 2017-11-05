@@ -1,5 +1,5 @@
 FROM multiarch/alpine:armhf-v3.5
-LABEL maintainer "Klud <pierre.ugazm@gmail.com>"
+LABEL maintainer "Klud <pierre.ugaz@innersea.xyz>"
 COPY gitlab-ci-multi-runner /usr/bin/
 COPY docker-machine /usr/bin/
 COPY entrypoint /
@@ -7,15 +7,18 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
     dumb-init=1.2.0-r0 \
     bash \
-    git \
     ca-certificates \
+    git \
     openssl \
+    tzdata \
     wget && \
     chmod +x /usr/bin/gitlab-ci-multi-runner && \
     ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
-    chmod +x /usr/bin/docker-machine && \
+    gitlab-runner --version && \
     mkdir -p /etc/gitlab-runner/certs && \
     chmod -R 700 /etc/gitlab-runner && \
+    chmod +x /usr/bin/docker-machine && \
+    docker-machine --version && \
     chmod +x /entrypoint
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
