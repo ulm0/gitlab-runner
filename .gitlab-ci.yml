@@ -30,7 +30,7 @@ stages:
     - master
   tags:
     - docker
-    # - armhf
+    - armhf
   script:
     - apk add --no-cache make bash
     - make release
