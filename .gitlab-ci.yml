@@ -1,23 +1,23 @@
 stages:
-  - build
+  # - build
   - release
 
-.binaries: &binaries
-  image: multiarch/alpine:armhf-v3.5
-  stage: build
-  only:
-    - master
-  tags:
-    - docker
-  script:
-    - source ci/upx_dependencies
-    - make compress
-  artifacts:
-    name: "$CI_JOB_NAME"
-    paths:
-      - binaries/gitlab-ci-multi-runner
-      - binaries/docker-machine
-    expire_in: 1 week
+# .binaries: &binaries
+#   image: multiarch/alpine:armhf-v3.6
+#   stage: build
+#   only:
+#     - master
+#   tags:
+#     - docker
+#   script:
+#     - source ci/upx_dependencies
+#     - make compress
+#   artifacts:
+#     name: "$CI_JOB_NAME"
+#     paths:
+#       - binaries/gitlab-ci-multi-runner
+#       - binaries/docker-machine
+#     expire_in: 1 week
 
 .image: &image
   image: klud/docker:17.03.1
@@ -35,7 +35,7 @@ stages:
     - apk add --no-cache make bash
     - make release
 
-binaries: *binaries
+# binaries: *binaries
 runner:
   <<: *image
   dependencies:
