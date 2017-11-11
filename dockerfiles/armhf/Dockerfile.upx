@@ -1,4 +1,4 @@
-FROM multiarch/alpine:armhf-v3.5
+FROM multiarch/alpine:armhf-v3.6
 LABEL maintainer "Klud <pierre.ugaz@innersea.xyz>"
 COPY gitlab-ci-multi-runner /usr/bin/
 COPY docker-machine /usr/bin/
