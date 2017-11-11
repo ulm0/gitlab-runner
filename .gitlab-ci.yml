@@ -38,8 +38,8 @@ stages:
 # binaries: *binaries
 runner:
   <<: *image
-  dependencies:
-    - binaries
+  # dependencies:
+  #   - binaries
   environment:
     name: stable/docker_images
     url: https://hub.docker.com/r/klud/gitlab-runner/tags/
