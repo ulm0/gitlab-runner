@@ -1,6 +1,6 @@
 stages:
   # - build
-  - release
+  - images
 
 # .binaries: &binaries
 #   image: multiarch/alpine:armhf-v3.6
@@ -20,12 +20,12 @@ stages:
 #     expire_in: 1 week
 
 .image: &image
-  image: klud/docker:17.03.1
-  stage: release
+  image: klud/docker:17.06.2
+  stage: images
   services: 
-    - klud/dind:17.03.1
+    - klud/docker:17.06.2-dind
   variables:
-    DOCKER_DRIVER: overlay
+    DOCKER_DRIVER: overlay2
   only:
     - master
   tags:

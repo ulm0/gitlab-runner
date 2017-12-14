@@ -102,12 +102,12 @@ gitlab-runner register -n \
 --executor docker \
 --description "ARM Runner by Klud" \
 --docker-image "klud/docker:17.03.1" \
---tag-list "tag1,tag2"
+--tag-list "tag1,tag2" \
 --docker-privileged
 ```
 
 #### Tip
- If you're going to build images on this runner you can use the docker image I built for this use-case as well, just type ```klud/docker:1.13.1``` or ```klud/docker:17.03.1``` when ```Please enter the Docker image``` in the first method or in ```--docker-image "image:tag"``` with the second method. There are also images for docker in docker (DinD) using ```klud/dind:1.13.1``` or ```klud/dind:17.03.1``` and for docker git ```klud/git:1.13.1``` or ```klud/git:17.03.1```
+ If you're going to build images on this runner you can use the docker image I built for this use-case as well, just type ```klud/docker:1.13.1``` or ```klud/docker:17.03.1``` when ```Please enter the Docker image``` in the first method or in ```--docker-image "image:tag"``` with the second method. There are also images for docker in docker (DinD) using ```klud/docker:1.13.1-dind``` or ```klud/docker:17.03.1-dind``` and for docker git ```klud/docker:1.13.1-git``` or ```klud/docker:17.03.1-git```
 
 ##### Dockerfiles and info about Docker in Docker images for ARM: [HERE](https://gitlab.com/klud/docker-in-docker)
 
