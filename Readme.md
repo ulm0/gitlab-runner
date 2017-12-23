@@ -37,7 +37,7 @@ If you plan on using the Docker executor, it is necessary to mount the Docker so
 ```sh
 docker run -d --name arm-runner --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /path/to/config/file:/etc/gitlab-runner \
+  -v $(pwd)/.runner:/etc/gitlab-runner \
   klud/gitlab-runner
 ```
 
