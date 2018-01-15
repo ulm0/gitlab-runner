@@ -14,7 +14,7 @@ You need to mount a config volume into our gitlab-runner container to be used fo
 
 ```sh
 docker run -d --name arm-runner \
--v /path/to/config/file:/etc/gitlab-runner \
+-v $(pwd)/.runner:/etc/gitlab-runner \
 --restart=always \
 klud/gitlab-runner
 ```
@@ -22,23 +22,22 @@ klud/gitlab-runner
 Or you can use a config container to mount your custom data volume:
 
 ```sh
-docker run -d --name arm-runner-config \
+docker run -d --name runner-config \
     -v /etc/gitlab-runner \
     armhf/busybox \
     /bin/true
 
 docker run -d --name arm-runner --restart=always \
-    --volumes-from arm-runner-config \
+    --volumes-from runner-config \
     klud/gitlab-runner
 ```
-
 
 If you plan on using the Docker executor, it is necessary to mount the Docker socket this way:
 
 ```sh
 docker run -d --name arm-runner --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /path/to/config/file:/etc/gitlab-runner \
+  -v $(pwd)/.runner:/etc/gitlab-runner \
   klud/gitlab-runner
 ```
 
@@ -51,7 +50,7 @@ runner:
   container_name: arm-runner
   restart: always
   volumes:
-    - /path/to/config/file:/etc/gitlab-runner
+    - $(pwd)/.runner:/etc/gitlab-runner
     - /var/run/docker.sock:/var/run/docker.sock
 ```
 
@@ -74,7 +73,7 @@ INFO[0034] fcf5c619 Registering runner... succeeded
 Please enter the executor: shell, docker, docker-ssh, ssh?
 docker
 Please enter the Docker image (eg. ruby:2.1):
-klud/docker:17.03.1
+klud/docker:17.06.2
 INFO[0037] Runner registered successfully. Feel free to start it, but if it's
 running already the config should be automatically reloaded!
 ```
@@ -88,8 +87,8 @@ gitlab-runner register -n \
 --registration-token XXX \
 --executor docker \
 --description "ARM Runner by Klud" \
---docker-image "klud/docker:17.03.1" \
---tag-list "tag1,tag2" \
+--docker-image "klud/docker:17.06.2" \
+--tag-list "docker,arm" \
 --docker-privileged
 ```
 
