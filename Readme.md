@@ -1,6 +1,6 @@
 # GitLab Runner for ARM
 
-[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits-master) [![](https://images.microbadger.com/badges/version/klud/gitlab-runner.svg)](https://microbadger.com/images/klud/gitlab-runner "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own image badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/)
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits/master) [![](https://images.microbadger.com/badges/version/klud/gitlab-runner.svg)](https://microbadger.com/images/klud/gitlab-runner "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:armhf.svg)](https://microbadger.com/images/klud/gitlab-runner:armhf "Get your own image badge on microbadger.com") [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/)
 
 ## About the image
 
