@@ -4,7 +4,7 @@ export IMAGE:=$(MAINTAINER)/$(NAME)
 export VERSION:=$(shell ./ci/version)
 export ARCHS:=armhf
 
-all: compress release
+all: release
 
 help:
 	# General commands:
@@ -24,9 +24,9 @@ version: FORCE
 	@echo ""
 	@echo Brought to you by $(MAINTAINER)
 
-compress:
-	# Download and compress binaries
-	@./ci/compress_binaries
+# compress:
+# 	# Download and compress binaries
+# 	@./ci/compress_binaries
 
 release:
 	# Releasing Docker images

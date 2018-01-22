@@ -6,7 +6,7 @@ _docker(){
     docker ${@}
 }
 
-build_regular() {
+build() {
     echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
     _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
 }
@@ -37,7 +37,7 @@ logout() {
 # cp binaries/gitlab-ci-multi-runner dockerfiles/armhf
 # cp binaries/docker-machine dockerfiles/armhf
 
-build_regular "VERSION=${VERSION}" "${IMAGE}:${VERSION}" dockerfiles/armhf/Dockerfile.regular dockerfiles/armhf
+build "VERSION=${VERSION}" "${IMAGE}:${VERSION}" dockerfiles/armhf/Dockerfile.regular dockerfiles/armhf
 # build_upx "${IMAGE}:${VERSION}-upx" dockerfiles/armhf/Dockerfile.upx dockerfiles/armhf
 
 tag "${IMAGE}:${VERSION}" "${IMAGE}:latest"
