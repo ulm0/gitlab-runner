@@ -1,5 +1,5 @@
 FROM multiarch/alpine:armhf-v3.6
-LABEL maintainer "Klud <pierre.ugaz@innersea.xyz>"
+LABEL maintainer "ulm0 <pierre.ugaz@innersea.xyz>"
 COPY entrypoint /
 ARG VERSION
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
