@@ -4,32 +4,27 @@ export IMAGE:=$(MAINTAINER)/$(NAME)
 export VERSION:=$(shell ./ci/version)
 export ARCHS:=armhf
 
-all: release
+all: version image
 
 help:
 	# General commands:
-	# make all => compress release
+	# make all => image
 	# make version - show information about the current version
 	#
 	# Build commands
-	# make compress - download and compress binaries with upx
-	#
-	# Deploy Commands
-	# make release - release images to docker hub and project registry
+	# make image - release images to docker hub and project registry
 
 version: FORCE
+	@echo "---"
 	@echo Version: $(VERSION)
 	@echo Image: $(IMAGE):$(VERSION)
 	@echo Platorms: $(ARCHS)
 	@echo ""
-	@echo Brought to you by $(MAINTAINER)
+	@echo Brought to you by ulm0
+	@echo "---"
 
-# compress:
-# 	# Download and compress binaries
-# 	@./ci/compress_binaries
-
-release:
-	# Releasing Docker images
-	@./ci/release_docker_images
+image:
+	# Build and push the Docker image
+	@./ci/build_and_release
 
 FORCE:
