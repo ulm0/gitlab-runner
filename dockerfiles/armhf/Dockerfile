@@ -1,4 +1,5 @@
-FROM multiarch/alpine:armhf-v3.6
+# FROM multiarch/alpine:armhf-v3.6
+FROM ulm0/alpine:v3.6
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 COPY entrypoint /
 ARG VERSION
