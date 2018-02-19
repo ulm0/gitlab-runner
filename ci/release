@@ -7,12 +7,12 @@ _docker(){
 }
 
 tag() {
-    echo -e "\033[1mTagging image: \033[32m${2}\033[0m"
+    echo -e "\033[1mTagging image: \033[33m${2}\033[0m"
     _docker tag "${1}" "${2}"
 }
 
 push() {
-    echo -e "\033[1mPushing image: \033[32m${1}\033[0m"
+    echo -e "\033[1mPushing image: \033[35m${1}\033[0m"
     _docker push "${1}"
 }
 
@@ -22,11 +22,6 @@ login() {
 
 logout() {
     _docker logout "${1}"
-}
-
-clean() {
-    echo -e "\033[1mCleaning up \033[34mused Docker resources\033[0m"
-    _docker system prune -af
 }
 
 tag "${IMAGE}:${VERSION}" "${IMAGE}:${VERSION}-alpine"
@@ -68,5 +63,3 @@ if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
 
     logout
 fi
-
-clean
