@@ -4,15 +4,16 @@ export IMAGE:=$(MAINTAINER)/$(NAME)
 export VERSION:=$(shell ./ci/version)
 export ARCHS:=armhf
 
-all: version image
+all: version build push
 
 help:
 	# General commands:
-	# make all => image
+	# make all => build push
 	# make version - show information about the current version
 	#
-	# Build commands
-	# make image - release images to docker hub and project registry
+	# Commands
+	# make build - build the Runner image
+	# make push - push the image to Docker Hub
 
 version: FORCE
 	@echo "---"
@@ -23,8 +24,11 @@ version: FORCE
 	@echo Brought to you by ulm0
 	@echo "---"
 
-image:
+build:
 	# Build and push the Docker image
-	@./ci/build_and_release
+	@./ci/build
+
+push:
+	@./ci/release
 
 FORCE:
