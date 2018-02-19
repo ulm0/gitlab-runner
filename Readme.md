@@ -1,6 +1,6 @@
 # GitLab Runner for ARM
 
-[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits/master) [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://gitlab.com/klud/gitlab-runner/blob/master/LICENSE)
+[![build status](https://gitlab.com/klud/gitlab-runner/badges/master/build.svg)](https://gitlab.com/klud/gitlab-runner/commits/master) [![Docker Pulls](https://img.shields.io/docker/pulls/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![Docker Pulls](https://img.shields.io/docker/stars/klud/gitlab-runner.svg)](https://hub.docker.com/r/klud/gitlab-runner/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Tags
 
@@ -12,7 +12,7 @@
 
 ## About the image
 
-This image is aimed for ARM architectures, based on the [official repo](https://gitlab.com/gitlab-org/gitlab-runner) of the GitLab Runner and built on Alpine Linux to make it as lightweight as possible.
+These image are built for ARM devices, based on the [official repo](https://gitlab.com/gitlab-org/gitlab-runner) of the GitLab Runner, both Alpine and Ubuntu flavors are available.
 
 ## Overview
 
