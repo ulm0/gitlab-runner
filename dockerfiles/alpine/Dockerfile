@@ -1,7 +1,7 @@
 FROM alpine:3.6
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 COPY entrypoint /
-ARG VERSION
+ARG RUNNER_VERSION
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
     dumb-init=1.2.0-r0 \
@@ -11,16 +11,17 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     openssl \
     tzdata \
     wget && \
-    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/v${VERSION}/binaries/gitlab-runner-linux-arm" -O /usr/bin/gitlab-ci-multi-runner && \
-    chmod +x /usr/bin/gitlab-ci-multi-runner && \
-    ln -s /usr/bin/gitlab-ci-multi-runner /usr/bin/gitlab-runner && \
+    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/v${RUNNER_VERSION}/binaries/gitlab-runner-linux-arm" -O /usr/bin/gitlab-runner && \
+    chmod +x /usr/bin/gitlab-runner && \
+    ln -s /usr/bin/gitlab-runner /usr/bin/gitlab-ci-multi-runner && \
     gitlab-runner --version && \
     mkdir -p /etc/gitlab-runner/certs && \
     chmod -R 700 /etc/gitlab-runner && \
-    wget -q https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
+    wget -q https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
     chmod +x /usr/bin/docker-machine && \
     docker-machine --version && \
-    chmod +x /entrypoint
+    chmod +x /entrypoint && \
+    dumb-init --version
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
 CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
