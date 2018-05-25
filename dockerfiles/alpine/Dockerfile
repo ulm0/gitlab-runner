@@ -1,8 +1,7 @@
-FROM multiarch/alpine:armhf-v3.7
+FROM alpine:3.6
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 COPY entrypoint /
 ARG RUNNER_VERSION
-ARG DOCKER_MACHINE_VERSION=0.14.0
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
     dumb-init=1.2.0-r0 \
@@ -18,7 +17,7 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     gitlab-runner --version && \
     mkdir -p /etc/gitlab-runner/certs && \
     chmod -R 700 /etc/gitlab-runner && \
-    wget -q https://github.com/docker/machine/releases/download/v${DOCKER_MACHINE_VERSION}/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
+    wget -q https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-Linux-armhf -O /usr/bin/docker-machine && \
     chmod +x /usr/bin/docker-machine && \
     docker-machine --version && \
     chmod +x /entrypoint && \

@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/ulm0/ubuntu:16.04-arm
+FROM ubuntu:14.04
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 RUN apt-get update -y && \
     apt-get upgrade -y && \
@@ -6,9 +6,9 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 ARG RUNNER_VERSION
-ARG DOCKER_MACHINE_VERSION=0.14.0
+ARG DOCKER_MACHINE_VERSION=0.13.0
 COPY dumb-init /usr/bin/
-RUN wget -q "https://packages.gitlab.com/runner/gitlab-runner/packages/ubuntu/xenial/gitlab-runner_${RUNNER_VERSION}_armhf.deb/download" -O /tmp/gitlab-runner_armhf.deb && \
+RUN wget -q https://packages.gitlab.com/runner/gitlab-runner/packages/ubuntu/trusty/gitlab-runner_${RUNNER_VERSION}_armhf.deb/download -O /tmp/gitlab-runner_armhf.deb && \
     dpkg -i /tmp/gitlab-runner_armhf.deb; \
     apt-get update &&  \
     apt-get -f install -y && \
