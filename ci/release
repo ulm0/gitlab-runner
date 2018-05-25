@@ -17,7 +17,7 @@ push() {
 }
 
 login() {
-    _docker login --username "${1}" --password "${2}" "${3}"
+    echo "${2}" | _docker login --username "${1}" --password-stdin "${3}"
 }
 
 logout() {
