@@ -6,7 +6,7 @@ COPY entrypoint /
 COPY dumb-init /usr/bin/
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y ca-certificates wget apt-transport-https curl git vim && \
+    apt-get install -y ca-certificates wget apt-transport-https curl git vim nano tzdata && \
     wget -q "https://packages.gitlab.com/runner/gitlab-runner/packages/ubuntu/xenial/gitlab-runner_${RUNNER_VERSION}_armhf.deb/download" -O /tmp/gitlab-runner_armhf.deb && \
     dpkg -i /tmp/gitlab-runner_armhf.deb; \
     apt-get update &&  \
