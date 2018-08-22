@@ -8,7 +8,7 @@
 
 [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:ubuntu.svg)](https://microbadger.com/images/klud/gitlab-runner:ubuntu "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:ubuntu.svg)](https://microbadger.com/images/klud/gitlab-runner:ubuntu "Get your own image badge on microbadger.com")
 
-**Note:** Alpine is the default image, so when you run `docker pull klud/gitlab-runner` this one will be downloaded.
+**Note:** Alpine is the default image, when running `docker pull klud/gitlab-runner` this one is going to be downloaded.
 
 ## About the image
 
@@ -72,16 +72,16 @@ You can either do this:
 docker exec -it arm-runner gitlab-runner register
 
 Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com )
-https://git.domain.tld
+https://gitlab.domain.tld
 Please enter the gitlab-ci token for this runner
-XXX
+XXXXXXXXXXXXXXXXXXXX
 Please enter the gitlab-ci description for this runner
-ARM Runner by Klud
+ARM Runner by ulm0
 INFO[0034] fcf5c619 Registering runner... succeeded
 Please enter the executor: shell, docker, docker-ssh, ssh?
 docker
 Please enter the Docker image (eg. ruby:2.1):
-klud/docker:17.06.2
+docker:17.12
 INFO[0037] Runner registered successfully. Feel free to start it, but if it's
 running already the config should be automatically reloaded!
 ```
@@ -91,39 +91,37 @@ Or this:
 ```sh
 docker exec -it arm-runner \
 gitlab-runner register -n \
---url https://git.domain.tld \
---registration-token XXX \
+--url https://gitlab.domain.tld \
+--registration-token XXXXXXXXXXXXXXXXXXXX \
 --executor docker \
---description "ARM Runner by Klud" \
---docker-image "klud/docker:17.06.2" \
+--description "ARM Runner by ulm0" \
+--docker-image "docker:17.12" \
 --tag-list "docker,arm" \
 --docker-privileged
 ```
 
-#### Tip
-
- If you're going to build images on this runner you can use the docker image I built for this use-case as well, just type `klud/docker:1.13.1` or `klud/docker:17.03.1` when `Please enter the Docker image` in the first method or in `--docker-image "image:tag"` with the second method. There are also images for docker in docker (DinD) using `klud/docker:1.13.1-dind` or `klud/docker:17.03.1-dind` and for docker git `klud/docker:1.13.1-git` or `klud/docker:17.03.1-git`
-
-##### Dockerfiles and info about Docker in Docker images for ARM: [HERE](https://gitlab.com/ulm0/docker-arm)
-
 ## Troubleshooting
 
-In case you're using docker in docker in the runner, you may expirience some problems when talking to the docker socket: `Cannot connect to the Docker daemon. Is the docker daemon running on this host?`.
+If you're using `docker in docker` in the runner, you may expirience some problems when talking to the docker socket
 
-So in order to address this issue you need to look within the config folder you mounted in the runner container, there will be a config file inside, you need to add some lines and then restart the runner with `docker restart arm-runner`.
+```sh
+Cannot connect to the Docker daemon. Is the docker daemon running on this host?
+```
+
+In order to address this issue you need to look within the config folder you mounted in the runner container, there will be a config file inside, you need to add some lines and then restart the runner with `docker restart arm-runner`.
 
 ```toml
 concurrent = 1
 check_interval = 0
 
 [[runners]]
-  name = "runner description"
-  url = "https://git.domain.tld"
-  token = "XXX"
+  name = "ARM Runner by ulm0"
+  url = "https://gitlab.domain.tld"
+  token = "XXXXXXXXXXXXXXXXXXXX"
   executor = "docker"
   [runners.docker]
     tls_verify = false
-    image = "klud/docker:1.13.1"
+    image = "docker:17.12"
     ### IF YOU USED THE FIRST METHOD YOU NEED TO SET
     ### THE RUNNER IN PRIVILEGED MODE TO BE ABLE TO SPAWN JOBS
     privileged = true
@@ -131,7 +129,7 @@ check_interval = 0
     ### YOU MAY NEED TO ADD THE CACHE DIR
     cache_dir = "cache"
     ### AND THE DOCKER SOCKET TO BE ABLE TO SPAWN JOBS AS WELL
-    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock","/cache"]
   [runners.cache]
 ```
 

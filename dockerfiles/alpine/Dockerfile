@@ -1,11 +1,11 @@
-FROM alpine:3.7
+FROM alpine:3.8
 LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
 ARG RUNNER_VERSION
 ARG DOCKER_MACHINE_VERSION=0.14.0
 COPY entrypoint /
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
-    dumb-init=1.2.0-r0 \
+    dumb-init=1.2.1-r0 \
     bash \
     ca-certificates \
     git \
