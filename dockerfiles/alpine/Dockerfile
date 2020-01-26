@@ -1,16 +1,17 @@
-FROM alpine:3.8
-LABEL maintainer "Mauricio Ugaz <ulm0@innersea.xyz>"
+FROM alpine:3.10
+LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 ARG RUNNER_VERSION
-ARG DOCKER_MACHINE_VERSION=0.14.0
+ARG DOCKER_MACHINE_VERSION=0.16.2
 COPY entrypoint /
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
-    dumb-init=1.2.1-r0 \
+    dumb-init=1.2.2-r1 \
     bash \
     ca-certificates \
     git \
     openssl \
     tzdata \
+    git-lfs \
     wget && \
     wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/v${RUNNER_VERSION}/binaries/gitlab-runner-linux-arm" -O /usr/bin/gitlab-runner && \
     chmod +x /usr/bin/gitlab-runner && \
@@ -20,9 +21,12 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     chmod -R 700 /etc/gitlab-runner && \
     wget -q "https://github.com/docker/machine/releases/download/v${DOCKER_MACHINE_VERSION}/docker-machine-Linux-armhf" -O /usr/bin/docker-machine && \
     chmod +x /usr/bin/docker-machine && \
-    docker-machine --version && \
     chmod +x /entrypoint && \
-    dumb-init --version
+    docker-machine --version && \
+    dumb-init --version && \
+    git-lfs install --skip-repo && \
+    git-lfs version
+STOPSIGNAL SIGQUIT
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
 CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]

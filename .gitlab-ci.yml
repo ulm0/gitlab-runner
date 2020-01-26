@@ -1,27 +1,7 @@
 stages:
-  - bin
   - images
 
-dumb-init:
-  image: alpine:3.6
-  stage: bin
-  variables:
-    BIN_REPO: http://ftp.us.debian.org/debian/pool/main/d/dumb-init/dumb-init_1.2.0-1_armhf.deb
-  script:
-    - apk add --no-cache binutils file
-    - wget $BIN_REPO -O /tmp/dumb-init_armhf.deb
-    - cd /tmp/
-    - ar -xo dumb-init_armhf.deb
-    - tar -xvf data.tar.xz
-    - file usr/bin/dumb-init
-    - cd -
-    - mkdir binaries
-    - cp /tmp/usr/bin/dumb-init binaries/dumb-init
-  artifacts:
-    paths:
-      - binaries/dumb-init
-
-.image: &image
+.image:
   image: docker:17.12
   stage: images
   services:
@@ -38,7 +18,7 @@ dumb-init:
     - make all
 
 test:
-  <<: *image
+  extends: .image
   script:
     - apk add --no-cache make bash
     - cp binaries/dumb-init dockerfiles/ubuntu/dumb-init
@@ -46,15 +26,11 @@ test:
     - make build
   except:
     - master
-  dependencies:
-    - dumb-init
 
 runner:
-  <<: *image
+  extends: .image
   only:
     - master
-  dependencies:
-    - dumb-init
   environment:
     name: stable/docker_images
     url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
