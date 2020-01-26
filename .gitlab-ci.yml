@@ -11,18 +11,14 @@ stages:
   tags:
     - docker
     - arm
-  script:
+  before_script:
     - apk add --no-cache make bash
-    - cp binaries/dumb-init dockerfiles/ubuntu/dumb-init
-    - chown 0:0 dockerfiles/ubuntu/dumb-init
+  script:
     - make all
 
 test:
   extends: .image
   script:
-    - apk add --no-cache make bash
-    - cp binaries/dumb-init dockerfiles/ubuntu/dumb-init
-    - chown 0:0 dockerfiles/ubuntu/dumb-init
     - make build
   except:
     - master
