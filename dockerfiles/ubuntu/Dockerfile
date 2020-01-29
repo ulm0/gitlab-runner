@@ -7,7 +7,7 @@ COPY entrypoint /
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y ca-certificates wget apt-transport-https curl git vim nano tzdata git-lfs dumb-init && \
-    wget -q "https://packages.gitlab.com/runner/gitlab-runner/packages/ubuntu/xenial/gitlab-runner_${RUNNER_VERSION}_armhf.deb/download" -O /tmp/gitlab-runner_armhf.deb && \
+    wget -q "https://packages.gitlab.com/runner/gitlab-runner/packages/ubuntu/bionic/gitlab-runner_${RUNNER_VERSION}_armhf.deb/download" -O /tmp/gitlab-runner_armhf.deb && \
     dpkg -i /tmp/gitlab-runner_armhf.deb; \
     apt-get update &&  \
     apt-get -f install -y && \
