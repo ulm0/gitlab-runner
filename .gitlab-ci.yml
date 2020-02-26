@@ -1,5 +1,7 @@
 stages:
+  - register
   - images
+  - unregister
 
 .image:
   image: docker:17.12
@@ -16,17 +18,54 @@ stages:
   script:
     - make all
 
-test:
-  extends: .image
-  script:
-    - make build
-  except:
-    - master
+.runner:
+  image:
+    name: hashicorp/terraform:0.12.17
+    entrypoint: [""]
+  before_script:
+    - export RUNNER_ARCH=$(echo $CI_JOB_NAME|sed 's,.*:,,g')
+    - cd ci/scway/$RUNNER_ARCH
+    - terraform init
 
-runner:
-  extends: .image
-  only:
-    - master
-  environment:
-    name: stable/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
+# test:arm:
+#   extends: .image
+#   script:
+#     - make build
+#   except:
+#     - master
+
+# img:arm:
+#   extends: .image
+#   only:
+#     - master
+#   environment:
+#     name: stable/docker_images
+#     url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
+
+register:arm:
+  extends: .runner
+  stage: register
+  script:
+    - terraform apply -auto-approve
+
+register:arm64:
+  extends: .runner
+  stage: register
+  script:
+    - terraform apply -auto-approve
+
+unregister:arm:
+  extends: .runner
+  stage: unregister
+  script:
+    - terraform destroy -auto-approve
+  dependencies:
+    - register:arm
+
+unregister:arm64:
+  extends: .runner
+  stage: unregister
+  script:
+    - terraform destroy -auto-approve
+  dependencies:
+    - register:arm64

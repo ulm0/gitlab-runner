@@ -11,5 +11,4 @@ build() {
     _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
 }
 
-build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}" dockerfiles/alpine/Dockerfile dockerfiles/alpine
 build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}-ubuntu" dockerfiles/ubuntu/Dockerfile dockerfiles/ubuntu

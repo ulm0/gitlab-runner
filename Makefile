@@ -24,9 +24,13 @@ version: FORCE
 	@echo Brought to you by ulm0
 	@echo "---"
 
-build:
-	# Build and push the Docker image
-	@./ci/build
+build: build-alpine build-ubuntu
+
+build-alpine:
+	@./ci/build-alpine
+
+build-ubuntu:
+	@./ci/build-ubuntu
 
 push:
 	@./ci/release

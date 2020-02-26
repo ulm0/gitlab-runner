@@ -1,2 +1,4 @@
 binaries
 */binaries
+.terraform
+*.tfstate*
