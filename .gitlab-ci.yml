@@ -61,6 +61,9 @@ unregister:arm:
     - terraform destroy -auto-approve
   dependencies:
     - register:arm
+  needs:
+    - register:arm
+  when: always
 
 unregister:arm64:
   extends: .runner
@@ -69,3 +72,6 @@ unregister:arm64:
     - terraform destroy -auto-approve
   dependencies:
     - register:arm64
+  needs:
+    - register:arm64
+  when: always
