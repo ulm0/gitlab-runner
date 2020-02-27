@@ -4,7 +4,7 @@ set -eo pipefail
 
 export PLATFORMS="linux/arm,linux/arm64"
 
-manifes-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:$VERSION-ARCH --target $IMAGE:$VERSION
-manifes-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:$VERSION-alpine-ARCH --target $IMAGE:$VERSION-alpine
-manifes-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:alpine-ARCH --target $IMAGE:alpine
-manifes-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:latest-ARCH --target $IMAGE:latest
+manifest-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:$VERSION-ARCH --target $IMAGE:$VERSION
+manifest-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:$VERSION-alpine-ARCH --target $IMAGE:$VERSION-alpine
+manifest-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:alpine-ARCH --target $IMAGE:alpine
+manifest-tool --username $DOCKER_HUB_USER --password $DOCKER_HUB_PASSWORD push from-args --platforms $PLATFORMS --template $IMAGE:latest-ARCH --target $IMAGE:latest
