@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -eo pipefail
+
+apkArch="$(apk --print-arch)"
+case "$apkArch" in
+    armhf) runnerArch='arm' ;;
+    armv7) runnerArch='arm' ;;
+    aarch64) runnerArch='arm64' ;;
+    *) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;
+esac
+
+_docker(){
+    docker ${@}
+}
+
+build() {
+    echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
+    _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
+}
+
+build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}-${runnerArch}" dockerfiles/alpine/Dockerfile dockerfiles/alpine

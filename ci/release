@@ -2,6 +2,14 @@
 
 set -eo pipefail
 
+apkArch="$(apk --print-arch)"
+case "$apkArch" in
+    armhf) runnerArch='arm' ;;
+    armv7) runnerArch='arm' ;;
+    aarch64) runnerArch='arm64' ;;
+    *) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;
+esac
+
 _docker(){
     docker ${@}
 }
@@ -24,28 +32,34 @@ logout() {
     _docker logout "${1}"
 }
 
-tag "${IMAGE}:${VERSION}" "${IMAGE}:${VERSION}-alpine"
-tag "${IMAGE}:${VERSION}" "${IMAGE}:alpine"
-tag "${IMAGE}:${VERSION}" "${IMAGE}:latest"
-tag "${IMAGE}:${VERSION}-ubuntu" "${IMAGE}:ubuntu"
+tag "${IMAGE}:${VERSION}-${runnerArch}" "${IMAGE}:${VERSION}-alpine-${runnerArch}"
+tag "${IMAGE}:${VERSION}-${runnerArch}" "${IMAGE}:alpine-${runnerArch}"
+tag "${IMAGE}:${VERSION}-${runnerArch}" "${IMAGE}:latest-${runnerArch}"
+if [[ "${runnerArch}" -eq "arm" ]]; then
+    tag "${IMAGE}:${VERSION}-ubuntu" "${IMAGE}:ubuntu"
+fi
 
 if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
-    tag "${IMAGE}:${VERSION}" "${CI_REGISTRY_IMAGE}:${VERSION}"
-    tag "${IMAGE}:${VERSION}" "${CI_REGISTRY_IMAGE}:${VERSION}-alpine"
-    tag "${IMAGE}:${VERSION}" "${CI_REGISTRY_IMAGE}:alpine"
-    tag "${IMAGE}:${VERSION}" "${CI_REGISTRY_IMAGE}:latest"
-    tag "${IMAGE}:${VERSION}-ubuntu" "${CI_REGISTRY_IMAGE}:${VERSION}-ubuntu"
-    tag "${IMAGE}:${VERSION}-ubuntu" "${CI_REGISTRY_IMAGE}:ubuntu"
+    tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:${VERSION}-${runnerArch}"
+    tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:${VERSION}-alpine-${runnerArch}"
+    tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:alpine-${runnerArch}"
+    tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:latest-${runnerArch}"
+    if [[ "${runnerArch}" -eq "arm" ]]; then
+        tag "${IMAGE}:${VERSION}-ubuntu" "${CI_REGISTRY_IMAGE}:${VERSION}-ubuntu"
+        tag "${IMAGE}:${VERSION}-ubuntu" "${CI_REGISTRY_IMAGE}:ubuntu"
+    fi
 
     if [[ -n "${CI_REGISTRY_USER}" ]] && [[ -n "${CI_REGISTRY_PASSWORD}" ]]; then
         login "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" "${CI_REGISTRY}"
 
-        push "${CI_REGISTRY_IMAGE}:${VERSION}"
-        push "${CI_REGISTRY_IMAGE}:${VERSION}-alpine"
-        push "${CI_REGISTRY_IMAGE}:alpine"
-        push "${CI_REGISTRY_IMAGE}:latest"
-        push "${CI_REGISTRY_IMAGE}:${VERSION}-ubuntu"
-        push "${CI_REGISTRY_IMAGE}:ubuntu"
+        push "${CI_REGISTRY_IMAGE}:${VERSION}-${runnerArch}"
+        push "${CI_REGISTRY_IMAGE}:${VERSION}-alpine-${runnerArch}"
+        push "${CI_REGISTRY_IMAGE}:alpine-${runnerArch}"
+        push "${CI_REGISTRY_IMAGE}:latest-${runnerArch}"
+        if [[ "${runnerArch}" -eq "arm" ]]; then
+            push "${CI_REGISTRY_IMAGE}:${VERSION}-ubuntu"
+            push "${CI_REGISTRY_IMAGE}:ubuntu"
+        fi
 
         logout "${CI_REGISTRY}"
     fi
@@ -54,12 +68,14 @@ fi
 if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
     login "${DOCKER_HUB_USER}" "${DOCKER_HUB_PASSWORD}"
 
-    push "${IMAGE}:${VERSION}"
-    push "${IMAGE}:${VERSION}-alpine"
-    push "${IMAGE}:alpine"
-    push "${IMAGE}:latest"
-    push "${IMAGE}:${VERSION}-ubuntu"
-    push "${IMAGE}:ubuntu"
+    push "${IMAGE}:${VERSION}-${runnerArch}"
+    push "${IMAGE}:${VERSION}-alpine-${runnerArch}"
+    push "${IMAGE}:alpine-${runnerArch}"
+    push "${IMAGE}:latest-${runnerArch}"
+    if [[ "${runnerArch}" -eq "arm" ]]; then
+        push "${IMAGE}:${VERSION}-ubuntu"
+        push "${IMAGE}:ubuntu"
+    fi
 
     logout
 fi
