@@ -2,9 +2,10 @@ export MAINTAINER:=klud
 export NAME:=gitlab-runner
 export IMAGE:=$(MAINTAINER)/$(NAME)
 export VERSION:=$(shell ./ci/version)
-export ARCHS:=armhf
+export ARCHS:="armhf aarch64"
 
 all: version build push
+all-arm64: version build-alpine push
 
 help:
 	# General commands:

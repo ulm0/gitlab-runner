@@ -13,8 +13,13 @@ provider "scaleway" {
 }
 
 module "arm64" {
-  source = "../module/runner"
-  arch = "arm64"
+  source                 = "../module/runner"
+  arch                   = "arm64"
   bootscript_name_filter = "4.19 latest"
-  server_type = "ARM64-2GB"
+  gitlab_site            = var.gitlab_site
+  gitlab_token           = var.gitlab_token
+  server_type            = "ARM64-2GB"
 }
+
+variable "gitlab_site" {}
+variable "gitlab_token" {}

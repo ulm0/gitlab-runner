@@ -13,8 +13,13 @@ provider "scaleway" {
 }
 
 module "arm" {
-  source = "../module/runner"
-  arch = "arm"
+  source                 = "../module/runner"
+  arch                   = "arm"
   bootscript_name_filter = "4.9 latest"
-  server_type = "C1"
+  gitlab_site            = var.gitlab_site
+  gitlab_token           = var.gitlab_token
+  server_type            = "C1"
 }
+
+variable "gitlab_site" {}
+variable "gitlab_token" {}

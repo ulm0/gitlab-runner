@@ -36,8 +36,14 @@ resource "scaleway_server" "runner" {
 
   provisioner "remote-exec" {
     inline = [
-      "docker info",
-      "uname -a",
+      templatefile(format("%s/runner.tpl",path.module), local.runner_params),
+    ]
+  }
+
+  provisioner "remote-exec" {
+    when = destroy
+    inline = [
+      "docker exec -it runner gitlab-runner unregister --all-runners",
     ]
   }
 }
