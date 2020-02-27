@@ -58,6 +58,9 @@ test:arm64:
 
 img:arm:
   extends: .image
+  tags:
+    - docker
+    - arm
   only:
     - master
   environment:
@@ -66,6 +69,9 @@ img:arm:
 
 img:arm64:
   extends: .image
+  tags:
+    - docker
+    - arm64
   only:
     - master
   script:
@@ -79,10 +85,6 @@ unregister:arm:
   stage: unregister
   script:
     - terraform destroy -auto-approve
-  dependencies:
-    - register:arm
-  needs:
-    - register:arm
   when: always
 
 unregister:arm64:
@@ -90,8 +92,4 @@ unregister:arm64:
   stage: unregister
   script:
     - terraform destroy -auto-approve
-  dependencies:
-    - register:arm64
-  needs:
-    - register:arm64
   when: always
