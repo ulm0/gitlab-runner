@@ -36,4 +36,7 @@ build-ubuntu:
 push:
 	@./ci/release
 
+multi-arch:
+	@./ci/multi-arch
+
 FORCE:

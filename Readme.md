@@ -8,7 +8,9 @@
 
 [![](https://images.microbadger.com/badges/version/klud/gitlab-runner:ubuntu.svg)](https://microbadger.com/images/klud/gitlab-runner:ubuntu "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/klud/gitlab-runner:ubuntu.svg)](https://microbadger.com/images/klud/gitlab-runner:ubuntu "Get your own image badge on microbadger.com")
 
-**Note:** Alpine is the default image, when running `docker pull klud/gitlab-runner` this one is going to be downloaded.
+**Notes:**
+  - Alpine is the default image, when running `docker pull klud/gitlab-runner` this one is going to be downloaded depending on the runner arch, at the moment arm & arm64 are supported.
+  - Currently only the alpine image is multi-arch.
 
 ## About the image
 

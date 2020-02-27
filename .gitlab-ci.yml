@@ -2,6 +2,7 @@ stages:
   - register
   - images
   - unregister
+  - multi-arch
 
 .image:
   image: docker:17.12
@@ -24,72 +25,78 @@ stages:
     - cd ci/scway/$RUNNER_ARCH
     - terraform init
 
-register:arm:
-  extends: .runner
-  stage: register
-  script:
-    - terraform apply -auto-approve
+# register:arm:
+#   extends: .runner
+#   stage: register
+#   script:
+#     - terraform apply -auto-approve
 
-register:arm64:
-  extends: .runner
-  stage: register
-  script:
-    - terraform apply -auto-approve
+# register:arm64:
+#   extends: .runner
+#   stage: register
+#   script:
+#     - terraform apply -auto-approve
 
-test:arm:
-  extends: .image
-  tags:
-    - docker
-    - arm
-  script:
-    - make build
-  except:
-    - master
+# test:arm:
+#   extends: .image
+#   tags:
+#     - docker
+#     - arm
+#   script:
+#     - make build
+#   except:
+#     - master
 
-test:arm64:
-  extends: .image
-  tags:
-    - docker
-    - arm64
-  script:
-    - make build-alpine
-  except:
-    - master
+# test:arm64:
+#   extends: .image
+#   tags:
+#     - docker
+#     - arm64
+#   script:
+#     - make build-alpine
+#   except:
+#     - master
 
-img:arm:
-  extends: .image
-  tags:
-    - docker
-    - arm
-  only:
-    - master
-  environment:
-    name: arm/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
+# img:arm:
+#   extends: .image
+#   tags:
+#     - docker
+#     - arm
+#   only:
+#     - master
+#   environment:
+#     name: arm/docker_images
+#     url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
 
-img:arm64:
-  extends: .image
-  tags:
-    - docker
-    - arm64
-  only:
-    - master
-  script:
-    - make all-arm64
-  environment:
-    name: arm64/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
+# img:arm64:
+#   extends: .image
+#   tags:
+#     - docker
+#     - arm64
+#   only:
+#     - master
+#   script:
+#     - make all-arm64
+#   environment:
+#     name: arm64/docker_images
+#     url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
 
-unregister:arm:
-  extends: .runner
-  stage: unregister
-  script:
-    - terraform destroy -auto-approve
-  when: always
+# unregister:arm:
+#   extends: .runner
+#   stage: unregister
+#   script:
+#     - terraform destroy -auto-approve
+#   when: always
 
-unregister:arm64:
-  extends: .runner
-  stage: unregister
+# unregister:arm64:
+#   extends: .runner
+#   stage: unregister
+#   script:
+#     - terraform destroy -auto-approve
+#   when: always
+
+arch-tag:
+  stage: multi-arch
+  image: ulm0/manifest-tool:1.0.0
   script:
-    - terraform destroy -auto-approve
-  when: always
+    - make multi-arch
