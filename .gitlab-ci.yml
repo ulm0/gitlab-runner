@@ -2,6 +2,7 @@ stages:
   - register
   - images
   - unregister
+  - multi-arch
 
 .image:
   image: docker:17.12
@@ -93,3 +94,11 @@ unregister:arm64:
   script:
     - terraform destroy -auto-approve
   when: always
+
+arch-tag:
+  stage: multi-arch
+  image: ulm0/manifest-tool:1.0.0
+  script:
+    - make multi-arch
+  only:
+    - master

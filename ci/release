@@ -35,7 +35,7 @@ logout() {
 tag "${IMAGE}:${VERSION}-${runnerArch}" "${IMAGE}:${VERSION}-alpine-${runnerArch}"
 tag "${IMAGE}:${VERSION}-${runnerArch}" "${IMAGE}:alpine-${runnerArch}"
 tag "${IMAGE}:${VERSION}-${runnerArch}" "${IMAGE}:latest-${runnerArch}"
-if [[ "${runnerArch}" -eq "arm" ]]; then
+if [[ "${runnerArch}" == "arm" ]]; then
     tag "${IMAGE}:${VERSION}-ubuntu" "${IMAGE}:ubuntu"
 fi
 
@@ -44,7 +44,7 @@ if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
     tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:${VERSION}-alpine-${runnerArch}"
     tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:alpine-${runnerArch}"
     tag "${IMAGE}:${VERSION}-${runnerArch}" "${CI_REGISTRY_IMAGE}:latest-${runnerArch}"
-    if [[ "${runnerArch}" -eq "arm" ]]; then
+    if [[ "${runnerArch}" == "arm" ]]; then
         tag "${IMAGE}:${VERSION}-ubuntu" "${CI_REGISTRY_IMAGE}:${VERSION}-ubuntu"
         tag "${IMAGE}:${VERSION}-ubuntu" "${CI_REGISTRY_IMAGE}:ubuntu"
     fi
@@ -56,7 +56,7 @@ if [[ -n "${CI_REGISTRY}" ]] && [[ -n "${CI_REGISTRY_IMAGE}" ]]; then
         push "${CI_REGISTRY_IMAGE}:${VERSION}-alpine-${runnerArch}"
         push "${CI_REGISTRY_IMAGE}:alpine-${runnerArch}"
         push "${CI_REGISTRY_IMAGE}:latest-${runnerArch}"
-        if [[ "${runnerArch}" -eq "arm" ]]; then
+        if [[ "${runnerArch}" == "arm" ]]; then
             push "${CI_REGISTRY_IMAGE}:${VERSION}-ubuntu"
             push "${CI_REGISTRY_IMAGE}:ubuntu"
         fi
@@ -72,7 +72,7 @@ if [[ -n "${DOCKER_HUB_USER}" ]] && [[ -n "${DOCKER_HUB_PASSWORD}" ]]; then
     push "${IMAGE}:${VERSION}-alpine-${runnerArch}"
     push "${IMAGE}:alpine-${runnerArch}"
     push "${IMAGE}:latest-${runnerArch}"
-    if [[ "${runnerArch}" -eq "arm" ]]; then
+    if [[ "${runnerArch}" == "arm" ]]; then
         push "${IMAGE}:${VERSION}-ubuntu"
         push "${IMAGE}:ubuntu"
     fi
