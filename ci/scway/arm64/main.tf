@@ -13,7 +13,7 @@ provider "scaleway" {
 }
 
 module "arm64" {
-  source                 = "../module/runner"
+  source                 = "git::https://gitlab.com/ulm0/tf-ci-runner.git"
   arch                   = "arm64"
   bootscript_name_filter = "4.19 latest"
   gitlab_site            = var.gitlab_site
