@@ -55,13 +55,14 @@ You can achieve this by using a `docker-compose.yml` file as well:
 
 ```yaml
 version: "2"
-runner:
-  image: klud/gitlab-runner
-  container_name: arm-runner
-  restart: always
-  volumes:
-    - $(pwd)/.runner:/etc/gitlab-runner
-    - /var/run/docker.sock:/var/run/docker.sock
+services:
+    runner:
+      image: klud/gitlab-runner
+      container_name: arm-runner
+      restart: always
+      volumes:
+        - .)/.runner:/etc/gitlab-runner
+        - /var/run/docker.sock:/var/run/docker.sock
 ```
 
 ### Register runner
