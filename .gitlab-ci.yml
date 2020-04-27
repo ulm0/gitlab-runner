@@ -110,6 +110,3 @@ arch-tag:
     - make multi-arch
   only:
     - master
-  needs:
-    - img:arm
-    - img:arm64
