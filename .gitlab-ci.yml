@@ -46,6 +46,8 @@ test:arm:
     - make build
   except:
     - master
+  needs:
+    - register:arm
 
 test:arm64:
   extends: .image
@@ -56,6 +58,8 @@ test:arm64:
     - make build-alpine
   except:
     - master
+  needs:
+    - register:arm64
 
 img:arm:
   extends: .image
@@ -66,7 +70,9 @@ img:arm:
     - master
   environment:
     name: arm/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
+    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
+  needs:
+    - register:arm
 
 img:arm64:
   extends: .image
@@ -79,7 +85,9 @@ img:arm64:
     - make all-arm64
   environment:
     name: arm64/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/ 
+    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
+  needs:
+    - register:arm64
 
 unregister:arm:
   extends: .runner
@@ -102,3 +110,6 @@ arch-tag:
     - make multi-arch
   only:
     - master
+  needs:
+    - img:arm
+    - img:arm64
