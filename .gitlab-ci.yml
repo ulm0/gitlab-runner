@@ -5,102 +5,58 @@ stages:
   - multi-arch
 
 .image:
-  image: docker:17.12
+  image: docker:stable
   stage: images
   services:
-    - docker:17.12-dind
+    - docker:stable-dind
   variables:
     DOCKER_DRIVER: overlay2
   before_script:
     - apk add --no-cache make bash
   script:
     - make all
-
-.runner:
-  image:
-    name: hashicorp/terraform:0.12.21
-    entrypoint: [""]
-  before_script:
-    - export RUNNER_ARCH=$(echo $CI_JOB_NAME|sed 's,.*:,,g')
-    - cd ci/scway/$RUNNER_ARCH
-    - terraform init
-
-register:arm:
-  extends: .runner
-  stage: register
-  script:
-    - terraform apply -auto-approve
-
-register:arm64:
-  extends: .runner
-  stage: register
-  script:
-    - terraform apply -auto-approve
-
-test:arm:
-  extends: .image
   tags:
     - docker
     - arm
+
+.runner:
+  image:
+    name: hashicorp/terraform:0.12.26
+    entrypoint: [""]
+  before_script:
+    - export RUNNER_ARCH=$(echo $CI_JOB_NAME|sed 's,.*:,,g')
+    - export TASK=$(echo $CI_JOB_NAME|sed 's,:.*$,,g')
+    - cd ci/scway/$RUNNER_ARCH
+    - terraform init
+  script:
+    - terraform $TASK -auto-approve
+
+apply:arm:
+  extends: .runner
+  stage: register
+
+test:arm:
+  extends: .image
   script:
     - make build
   except:
     - master
   needs:
-    - register:arm
-
-test:arm64:
-  extends: .image
-  tags:
-    - docker
-    - arm64
-  script:
-    - make build-alpine
-  except:
-    - master
-  needs:
-    - register:arm64
+    - apply:arm
 
 img:arm:
   extends: .image
-  tags:
-    - docker
-    - arm
   only:
     - master
   environment:
     name: arm/docker_images
     url: https://hub.docker.com/r/klud/gitlab-runner/tags/
   needs:
-    - register:arm
+    - apply:arm
 
-img:arm64:
-  extends: .image
-  tags:
-    - docker
-    - arm64
-  only:
-    - master
-  script:
-    - make all-arm64
-  environment:
-    name: arm64/docker_images
-    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
-  needs:
-    - register:arm64
-
-unregister:arm:
+destroy:arm:
   extends: .runner
   stage: unregister
-  script:
-    - terraform destroy -auto-approve
-  when: always
-
-unregister:arm64:
-  extends: .runner
-  stage: unregister
-  script:
-    - terraform destroy -auto-approve
   when: always
 
 arch-tag:
@@ -112,4 +68,3 @@ arch-tag:
     - master
   needs:
     - img:arm
-    - img:arm64
