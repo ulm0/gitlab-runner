@@ -59,6 +59,34 @@ destroy:arm:
   stage: unregister
   when: always
 
+apply:arm64:
+  extends: .runner
+  stage: register
+
+test:arm64:
+  extends: .image
+  script:
+    - make build
+  except:
+    - master
+  needs:
+    - apply:arm
+
+img:arm64:
+  extends: .image
+  only:
+    - master
+  environment:
+    name: arm/docker_images
+    url: https://hub.docker.com/r/klud/gitlab-runner/tags/
+  needs:
+    - apply:arm
+
+destroy:arm64:
+  extends: .runner
+  stage: unregister
+  when: always
+
 arch-tag:
   stage: multi-arch
   image: ulm0/manifest-tool:1.0.0
@@ -68,3 +96,4 @@ arch-tag:
     - master
   needs:
     - img:arm
+    - img:arm64
