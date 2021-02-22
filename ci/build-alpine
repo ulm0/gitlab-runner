@@ -21,4 +21,4 @@ build() {
     _docker build --platform="${RUN_AS_PLATFORM}" --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
 }
 
-build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}-${runnerArch}" dockerfiles/alpine/Dockerfile dockerfiles/alpine
+build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}-${RUN_AS_PLATFORM}" dockerfiles/alpine/Dockerfile dockerfiles/alpine
