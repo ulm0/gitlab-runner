@@ -70,7 +70,7 @@ test:arm64:
   except:
     - master
   needs:
-    - apply:arm
+    - apply:arm64
 
 img:arm64:
   extends: .image
@@ -80,7 +80,7 @@ img:arm64:
     name: arm/docker_images
     url: https://hub.docker.com/r/klud/gitlab-runner/tags/
   needs:
-    - apply:arm
+    - apply:arm64
 
 destroy:arm64:
   extends: .runner
