@@ -10,13 +10,15 @@ case "$apkArch" in
     *) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;
 esac
 
+export RUN_AS_PLATFORM=${RUN_AS_PLATFORM:-$runnerArch}
+
 _docker(){
-    docker ${@}
+    docker "${@}"
 }
 
 build() {
     echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
-    _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
+    _docker build --platform="${RUN_AS_PLATFORM}" --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
 }
 
 build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}-${runnerArch}" dockerfiles/alpine/Dockerfile dockerfiles/alpine

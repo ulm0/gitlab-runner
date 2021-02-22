@@ -2,13 +2,23 @@
 
 set -eo pipefail
 
+hostArch=$(uname -m)
+case "$hostArch" in
+    armhf) runnerArch='arm' ;;
+    armv7) runnerArch='arm' ;;
+    aarch64) runnerArch='arm64' ;;
+    *) echo >&2 "error: unsupported architecture ($hostArch)"; exit 1 ;;
+esac
+
+export RUN_AS_PLATFORM=${RUN_AS_PLATFORM:-$runnerArch}
+
 _docker(){
-    docker ${@}
+    docker "${@}"
 }
 
 build() {
     echo -e "\033[1mBuilding image: \033[32m${2}\033[0m"
-    _docker build --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
+    _docker build --platform="${RUN_AS_PLATFORM}" --build-arg "${1}" -t "${2}" -f "${3}" "${4}"
 }
 
 build "RUNNER_VERSION=${VERSION}" "${IMAGE}:${VERSION}-ubuntu" dockerfiles/ubuntu/Dockerfile dockerfiles/ubuntu
