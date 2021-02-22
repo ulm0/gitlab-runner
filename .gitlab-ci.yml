@@ -17,7 +17,7 @@ stages:
     - make all
   tags:
     - docker
-    - arm
+    - arm64
 
 .runner:
   image:
