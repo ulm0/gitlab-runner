@@ -21,12 +21,12 @@ stages:
 
 .runner:
   image:
-    name: hashicorp/terraform:0.12.26
+    name: hashicorp/terraform:0.14.7
     entrypoint: [""]
   before_script:
     - export RUNNER_ARCH=$(echo $CI_JOB_NAME|sed 's,.*:,,g')
     - export TASK=$(echo $CI_JOB_NAME|sed 's,:.*$,,g')
-    - cd ci/scway/$RUNNER_ARCH
+    - cd ci/aws/$RUNNER_ARCH
     - terraform init
   script:
     - terraform $TASK -auto-approve
