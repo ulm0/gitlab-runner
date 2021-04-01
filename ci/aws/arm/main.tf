@@ -13,6 +13,7 @@ provider "aws" {
 
 module "arm" {
   source          = "git::https://gitlab.com/innersea/tf-modules/gitlab-runner.git"
+  name            = "ARM runner builder"
   gitlab_token    = var.gitlab_token
   run_as_platform = "arm"
 }
