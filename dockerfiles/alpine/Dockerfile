@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:latest
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 ARG RUNNER_VERSION
 ARG DOCKER_MACHINE_VERSION=0.16.2
@@ -36,7 +36,7 @@ RUN set -eux; \
     tzdata \
     git-lfs \
     wget && \
-    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/v${RUNNER_VERSION}/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner && \
+    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner && \
     chmod +x /usr/bin/gitlab-runner && \
     ln -s /usr/bin/gitlab-runner /usr/bin/gitlab-ci-multi-runner && \
     gitlab-runner --version && \
