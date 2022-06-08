@@ -30,7 +30,7 @@ RUN set -eux; \
 
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
-    dumb-init=1.2.2-r1 \
+    dumb-init \
     bash \
     ca-certificates \
     git \
