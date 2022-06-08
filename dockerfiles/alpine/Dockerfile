@@ -24,7 +24,8 @@ RUN set -eux; \
 # arm64v8
 		aarch64) machineArch='aarch64' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
-	esac; #\
+	esac; \
+	echo "Runner arch is $(runnerArch) and machineARch is $(machineArch)'
 #    \
 
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
