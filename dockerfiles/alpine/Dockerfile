@@ -15,8 +15,8 @@ RUN set -eux; \
 		aarch64) runnerArch='arm64' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
-#    \
-RUN case "$apkArch" in \
+    \  
+        case "$apkArch" in \
 # arm32v6
 		armhf) machineArch='armhf' ;; \
 # arm32v7
@@ -25,8 +25,8 @@ RUN case "$apkArch" in \
 		aarch64) machineArch='aarch64' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
-    \
-    adduser -D -S -h /home/gitlab-runner gitlab-runner && \
+#    \
+RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
     dumb-init=1.2.2-r1 \
     bash \
