@@ -8,6 +8,7 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y ca-certificates wget apt-transport-https curl git vim nano tzdata git-lfs dumb-init && \
     UBUNTU_VERSION_NAME=$(sed -rn 's|^deb\s+\S+\s+(\w+)\s+main.*$|\1|p' /etc/apt/sources.list | head -n 1) && \
+    echo "Ubuntu version name is ($UBUNTU_VERSION_NAME)" && \
     wget -q "https://packages.gitlab.com/runner/gitlab-runner/packages/ubuntu/${UBUNTU_VERSION_NAME}/gitlab-runner_${RUNNER_VERSION}_armhf.deb/download" -O /tmp/gitlab-runner_armhf.deb && \
     dpkg -i /tmp/gitlab-runner_armhf.deb; \
     apt-get update &&  \
