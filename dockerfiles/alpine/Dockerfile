@@ -15,8 +15,8 @@ RUN set -eux; \
 		aarch64) runnerArch='arm64' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
-    \
-	case "$apkArch" in \
+#    \
+RUN case "$apkArch" in \
 # arm32v6
 		armhf) machineArch='armhf' ;; \
 # arm32v7
