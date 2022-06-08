@@ -25,10 +25,9 @@ RUN set -eux; \
 		aarch64) machineArch='aarch64' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
 	esac; \
-	echo "Runner arch is ($runnerArch) and machineARch is ($machineArch)"
-#    \
-
-RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
+	echo "Runner arch is ($runnerArch) and machineARch is ($machineArch)"; \
+  \
+  adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
     dumb-init \
     bash \
@@ -37,16 +36,10 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     openssl \
     tzdata \
     git-lfs \
-    wget 
-
-# && \
-
-RUN echo "Will download for arch $(runnerArch)" && \
-    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner 
-
-# && \
-
-RUN chmod +x /usr/bin/gitlab-runner && \
+    wget && \
+    echo "Will download for arch $(runnerArch)" && \
+    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner && \
+    chmod +x /usr/bin/gitlab-runner && \
     ln -s /usr/bin/gitlab-runner /usr/bin/gitlab-ci-multi-runner && \
     gitlab-runner --version && \
     mkdir -p /etc/gitlab-runner/certs && \
