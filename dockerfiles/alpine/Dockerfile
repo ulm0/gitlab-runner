@@ -24,8 +24,9 @@ RUN set -eux; \
 # arm64v8
 		aarch64) machineArch='aarch64' ;; \
 		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
-	esac; \
+	esac; #\
 #    \
+
 RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     apk add --no-cache \
     dumb-init=1.2.2-r1 \
@@ -36,9 +37,13 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
     tzdata \
     git-lfs \
     wget 
+
 # && \
+
 RUN wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner 
+
 # && \
+
 RUN chmod +x /usr/bin/gitlab-runner && \
     ln -s /usr/bin/gitlab-runner /usr/bin/gitlab-ci-multi-runner && \
     gitlab-runner --version && \
