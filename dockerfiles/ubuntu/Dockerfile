@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
 ARG RUNNER_VERSION
 ARG DOCKER_MACHINE_VERSION=0.16.2
