@@ -40,7 +40,8 @@ RUN adduser -D -S -h /home/gitlab-runner gitlab-runner && \
 
 # && \
 
-RUN wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner 
+RUN echo "Will download for arch $(runnerArch)" && \
+    wget -q "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-${runnerArch}" -O /usr/bin/gitlab-runner 
 
 # && \
 
