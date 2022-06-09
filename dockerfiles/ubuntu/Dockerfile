@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 LABEL maintainer "Pierre Ugaz <ulm0@innersea.xyz>"
-ARG RUNNER_VERSION
+ARG RUNNER_VERSION=15.0.0
 ARG DOCKER_MACHINE_VERSION=0.16.2
 ENV DEBIAN_FRONTEND=noninteractive
 COPY entrypoint /
